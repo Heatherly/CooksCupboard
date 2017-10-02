@@ -1,3 +1,13 @@
+/*NEED TO UPDATE THIS WITH OUR RECIPES MODEL TO INCLUDE THE FOLLOWING FIELDS:
+  Title, Ingredients, Source, Source URL, Picture URL (All from Edaman, or when the user creates one)
+  
+  --ALSO NEEDED FIELDS:
+  Notes (Annotatiosn the user can add to Edaman recipes or the recipes the user creates)
+  Saved (default: False, a Boolean to say if it's saved to the user's MyCookbook), 
+  List (default: False, a Boolean to say if it's added to the Shopping List or not)
+*/
+
+
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 

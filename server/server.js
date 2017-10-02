@@ -31,6 +31,7 @@ mongoose.connect("mongodb://localhost/robotbattle");
 var db = mongoose.connection;
 
 // Log any mongoose errors
+//THIS .on IS A DEPRECATED METHOD. LOOK UP THE NEW WAY TO START MONGOOSE'S CONNECTION TO DB
 db.on("error", function(error) {
   console.log("Mongoose Error: ", error);
 });
@@ -65,6 +66,6 @@ app.post("/robots", function(req, res) {
     });
 });
 
-app.listen(3000, function() {
-  console.log("App running on port 3000!");
+app.listen(8000, function() {
+  console.log("App running on port 8000!");
 });
