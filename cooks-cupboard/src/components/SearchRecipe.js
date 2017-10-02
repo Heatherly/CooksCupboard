@@ -36,20 +36,18 @@ class SearchRecipe extends React.Component {
 render() {
     return (
       <div className={'SearchRecipe'}> {/*//ES6 syntax vs <div className="Search">*/}
-        <h2>Search New Recipes</h2>
+        
+			<form id="searchAPI" onSubmit={this.handleSubmit}>
 
-        	<div className="card searchForm">
-			  <div className="card-body">
-			  	<form id="searchAPI" onSubmit={this.handleSubmit}>
-			  	  <div className="form-group row">
+			  	<h2>Search New Recipes</h2>
+			  	  <div className="form-group">
 			  		<label htmlFor="term">Keyword: </label>
-				  		<div className="col-sm-10">
-	          				<input id="term" className="form-control" type="text" placeholder="Search" value={this.state.term} onChange={this.handleChange} required />
-	          			</div>
-          		  </div>
-          		  <div className="form-group row">
-          			<label htmlFor="diet">Diet: </label>
-          			  <div className="col-sm-5">
+				  		<input id="term" className="form-control" type="text" placeholder="Search" value={this.state.term} onChange={this.handleChange} required />
+	          		</div>
+	          		
+          		  <div className="form-row">
+          		  	<div className="form-group col-md-6">
+          		  		<label htmlFor="diet">Diet: </label>
 		          		<select className="form-control" id="diet" value={this.state.diet} onChange={this.handleChange}>
 					    	<option></option>
 							<option value="balanced">Balanced</option>
@@ -57,9 +55,9 @@ render() {
 							<option value="low-carb">Low-Carb</option>
 							<option value="low-fat">Low-Fat</option>
 					    </select>
-					  </div>
-				  	<label htmlFor="health">Lifestyle: </label>
-				  	  <div className="col-sm-5">
+					</div>
+					<div className="form-group col-md-6">
+				  		<label htmlFor="health">Lifestyle: </label>
 		          		<select className="form-control" id="health" value={this.state.health} onChange={this.handleChange}>
 								<option></option>
 								<option value="alcohol-free">Alcohol Free</option>
@@ -71,13 +69,13 @@ render() {
 					    </select>
 				  	  </div>
 				  	</div>
-				  <div className="form-group row">
+				 
+				 <div className="form-group">
 					<button type="submit" className="btn btn-primary" value="search">Search</button>
 				  </div>
 				  <div id="edamam-badge" data-color="dark"></div>
 				</form>
-			  </div>
-			</div>
+			
 
             
 
