@@ -6,28 +6,47 @@
   Saved (default: False, a Boolean to say if it's saved to the user's MyCookbook), 
   List (default: False, a Boolean to say if it's added to the Shopping List or not)
 */
-
+// ^^^^^^^^ is done. need to review.
 
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var RobotSchema = new Schema({
-  name: {
+var RecipeSchema = new Schema({
+  title: {
     type: String,
     trim: true,
     required: "Name required"
   },
-    power: {
+    ingredients: {
     type: String,
     trim: true,
     required: "Power Level required"
   },
-    defense: {
+    source: {
     type: String,
     trim: true,
-    required: "Defense Level required"
   },
+    sourceUrl: {
+      type: String,
+      trim: true
+  },
+    picURL: {
+      type: String,
+      trim: true
+  },
+    notes: {
+      type: String,
+      trim: true
+  },
+    saved: {
+      type: Boolean,
+      default: false
+  },
+    list: {
+      type: Boolean,
+      default: false
+  }
 });
 
-var Robot = mongoose.model("Robot", RobotSchema);
-module.exports = Robot;
+var Recipe = mongoose.model("Recipe", RecipeSchema);
+module.exports = Recipe;

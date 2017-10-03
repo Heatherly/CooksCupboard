@@ -5,7 +5,7 @@ var mongoose = require("mongoose");
 
 mongoose.Promise = Promise;
 
-var Robot = require("./models/Robot.js");
+var Recipe = require("./models/Recipe.js");
 
 
 var app = express();
@@ -25,8 +25,8 @@ app.use(express.static("public"));
 
 
 // Database configuration for mongoose
-// db: week18day3mongoose
-mongoose.connect("mongodb://localhost/robotbattle");
+// db: CooksCupbaord
+mongoose.connect("mongodb://localhost/CooksCupboard");
 // Hook mongoose connection to db
 var db = mongoose.connection;
 
