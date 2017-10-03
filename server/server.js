@@ -1,4 +1,5 @@
 var express = require("express");
+var MongooseConnection = require('mongoose-connection-promise');
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
@@ -22,24 +23,24 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 // Static file support with public folder
 app.use(express.static("public"));
+ 
 
+// connecting mongoose to datbase using mongoose-connection-promise npm
+var opts = {
+  host: 'localhost',
+  database: 'CooksCupboard'
+};
+ 
+var mongooseConnection = new MongooseConnection(opts);
+ 
+mongooseConnection.connect()
+  .then(connection => {
+    console.log("connected to db");
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
-// Database configuration for mongoose
-// db: CooksCupbaord
-mongoose.connect("mongodb://localhost/CooksCupboard");
-// Hook mongoose connection to db
-var db = mongoose.connection;
-
-// Log any mongoose errors
-//THIS .on IS A DEPRECATED METHOD. LOOK UP THE NEW WAY TO START MONGOOSE'S CONNECTION TO DB
-db.on("error", function(error) {
-  console.log("Mongoose Error: ", error);
-});
-
-// Log a success message when we connect to our mongoDB collection with no issues
-db.once("open", function() {
-  console.log("Mongoose connection successful.");
-});
 
 app.get("/robots", function(req, res) {
 	Robot.find(function (error, doc) {
