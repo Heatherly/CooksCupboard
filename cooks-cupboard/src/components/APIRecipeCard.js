@@ -8,30 +8,35 @@ class APIrecipes extends React.Component {
         super(props);
 
         }
+    
 
     render() {
-        const props = {...this.props};
+        // const props = {...this.props};
 
         return (
             <div className={'ShowRobot'}>
                 <ul className={'collection'}>
-                    
-                {props.robots.map(robot => ( //the _id is coming from Mongo
-                    <li key={robot._id} className={'collection-item'}>
-                        <span className={'title'}>{robot.name}</span>
-                        <p>Power - {robot.power} <br />
-                           Defense - {robot.defense}
-                        </p>
-                    </li>
-                ))}
 
+                    {this.props.apiResults.map((recipeInfo, i) => {
+                      return (
+                        <div key={i} className="recipeInfo">
+                          <a href={recipeInfo.recipe.url}>
+                            {recipeInfo.recipe.label}</a>
+                             uses these ingredients:  
+                            {recipeInfo.recipe.ingredientLines}
+                          
+                        </div>
+                      );
+                    })}
+           
                 </ul>
-            </div >
-        );
-    }
+            </div>
+    );
+  
+  }
 
     componentDidMount() {
     }
-}
+};
 
 export default APIrecipes;
