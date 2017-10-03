@@ -14,22 +14,32 @@ class APIrecipes extends React.Component {
         // const props = {...this.props};
 
         return (
-            <div className={'ShowRobot'}>
-                <ul className={'collection'}>
+            <div className="card-columns">
+                
 
                     {this.props.apiResults.map((recipeInfo, i) => {
                       return (
-                        <div key={i} className="recipeInfo">
-                          <a href={recipeInfo.recipe.url}>
-                            {recipeInfo.recipe.label}</a>
-                             uses these ingredients:  
-                            {recipeInfo.recipe.ingredientLines}
-                          
+
+                        <div class="card">
+                          <img class="card-img-top" src={recipeInfo.recipe.image} alt={recipeInfo.recipe.label}/>
+                          <div class="card-body">
+                            <h4 class="card-title">{recipeInfo.recipe.label}</h4>
+                            <ul class="card-text">INGREDIENTS: 
+                                {recipeInfo.recipe.ingredients.map(function(ing, i) {
+                                    return(
+                                        <li key={i}>{ing.text}</li>
+                                    )
+                                })
+                                    
+                                }
+                                
+                            </ul>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                          </div>
                         </div>
                       );
                     })}
-           
-                </ul>
+                           
             </div>
     );
   

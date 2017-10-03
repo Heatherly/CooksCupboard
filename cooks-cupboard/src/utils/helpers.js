@@ -10,7 +10,7 @@ var helper = {
   // This function serves our purpose of running the query to geolocate.
   runQuery: function(term, diet, health) {
     // Search for articles
-    var queryURL = "https://api.edamam.com/search?q=" + term + "&app_id=ef316e31&app_key=461d0411e8ce0762dbb22002d91b424d&from=0&to=8";
+    var queryURL = "https://api.edamam.com/search?q=" + term + "&app_id=ef316e31&app_key=461d0411e8ce0762dbb22002d91b424d&from=0&to=12";
 
     return axios.get(queryURL).then(function(response) {
 
