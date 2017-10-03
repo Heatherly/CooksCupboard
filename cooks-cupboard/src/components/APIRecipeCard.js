@@ -8,30 +8,45 @@ class APIrecipes extends React.Component {
         super(props);
 
         }
+    
 
     render() {
-        const props = {...this.props};
+        // const props = {...this.props};
 
         return (
-            <div className={'ShowRobot'}>
-                <ul className={'collection'}>
-                    
-                {props.robots.map(robot => ( //the _id is coming from Mongo
-                    <li key={robot._id} className={'collection-item'}>
-                        <span className={'title'}>{robot.name}</span>
-                        <p>Power - {robot.power} <br />
-                           Defense - {robot.defense}
-                        </p>
-                    </li>
-                ))}
+            <div className="card-columns">
+                
 
-                </ul>
-            </div >
-        );
-    }
+                    {this.props.apiResults.map((recipeInfo, i) => {
+                      return (
+
+                        <div class="card">
+                          <img class="card-img-top" src={recipeInfo.recipe.image} alt={recipeInfo.recipe.label}/>
+                          <div class="card-body">
+                            <h4 class="card-title">{recipeInfo.recipe.label}</h4>
+                            <ul class="card-text">INGREDIENTS: 
+                                {recipeInfo.recipe.ingredients.map(function(ing, i) {
+                                    return(
+                                        <li key={i}>{ing.text}</li>
+                                    )
+                                })
+                                    
+                                }
+                                
+                            </ul>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                          </div>
+                        </div>
+                      );
+                    })}
+                           
+            </div>
+    );
+  
+  }
 
     componentDidMount() {
     }
-}
+};
 
 export default APIrecipes;

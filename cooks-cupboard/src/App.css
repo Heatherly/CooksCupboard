@@ -1,35 +1,74 @@
 /*WE WILL PUT IN OUR OWN CSS FOR OUR APP HERE*/
-
-.App {
-  text-align: center;
+html, body {
+	height: 100%;
+    margin: 0;
+    font-family: 'Oswald', sans-serif;
+    background-image: url("./assets/halftone.png");
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+h1,h2,h3,h4 {
+	font-family: 'Lobster Two', bold;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+h1 {
+	color: #FF6600;
 }
 
-.App-title {
-  font-size: 1.5em;
+p, form {
+	font-family: 'Oswald', sans-serif;
 }
 
-.App-intro {
-  font-size: large;
+.container-fluid {
+	padding: 0;
 }
 
-.searchForm {
-	background-color: gray;
-	max-width: 600px;
+header {
+    background-image: url("./assets/spice-spoons-crop.jpg");
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 150px;
+}
+
+header > div {
+    background-color: rgba(0, 0, 0, 0.5);
+    min-height: 100%;
+    align-items: center;
+}
+
+#header-logo {
+	max-height: 250px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+     }
+
+.navbar {
+	background-color: #FF6600;
+	-webkit-box-shadow: inset 0 20px 20px -20px rgba(0,0,0,0.8);
+    -moz-box-shadow: inset 0 20px 20px -20px rgba(0,0,0,0.8);
+	}
+
+.container {
 	padding: 20px;
-	font-weight: bold;
+}
+
+
+#searchAPI {
+	background-color: gray;
+	border: 1px solid #000;
+	border-radius: 5px;
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4); /*x-offset y-offset blur-radius color*/
+	max-width: 600px;
 	position: relative;
+	margin: 0 auto;
+	padding: 10px;
+	text-align: center;
+}
+
+#searchAPI .btn-primary {
+	background-color: #FF6600;
+	border-color: #333;
 }
 
 #edamam-badge {
@@ -37,3 +76,41 @@
 	right: 0;
 	bottom: 0;
 }
+
+.api-results {
+	margin-top: 20px;
+}
+
+
+/*Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575px) { ... }
+*/
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767px) { 
+	.card-columns {
+    	column-count: 2;
+	}
+}
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) and (max-width: 991px) { 
+	.card-columns {
+    	column-count: 2;
+    }
+}
+
+/*Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199px) {
+	.card-columns {
+    	column-count: 3;
+	}
+}
+
+/*Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+	.card-columns {
+    	column-count: 4;
+	}
+
+}
+
