@@ -27,7 +27,7 @@ app.use(express.static("public"));
 
 app.use(require('./routes/general'));
 
-app.use(express.static('../cooks-cupboard'));
+app.use(require('./routes/auth'));
  
 
 // connecting mongoose to datbase using mongoose-connection-promise npm
