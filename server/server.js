@@ -1,13 +1,14 @@
 var express = require("express");
-var MongooseConnection = require('mongoose-connection-promise');
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
-mongoose.Promise = Promise;
-
 var Recipe = require("./models/Recipe.js");
 
+mongoose.connect('mongod://localhost:27017/cookscupboard', {
+  useMongoClient: true
+});
+mongoose.Promise = global.Promise;
 
 
 var app = express();
@@ -29,23 +30,6 @@ app.use(require('./routes/general'));
 
 app.use(require('./routes/auth'));
  
-
-// connecting mongoose to datbase using mongoose-connection-promise npm
-var opts = {
-  host: 'localhost',
-  database: 'CooksCupboard'
-};
- 
-var mongooseConnection = new MongooseConnection(opts);
- 
-mongooseConnection.connect()
-  .then(connection => {
-    console.log("connected to db");
-  })
-  .catch(err => {
-    console.log(err);
-  });
-
 
 app.listen(8000, function() {
   console.log("App running on port 8000!");
