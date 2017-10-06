@@ -6,7 +6,7 @@ var passport = require('passport');
 
 router.get('/login', function(req, res) {
 	
-	res.sendfile(path.join(__dirname, "../public","login.html"))
+	res.sendFile(path.join(__dirname, "../public","login.html"))
 });
 
 router.post('/login', passport.authenticate('local', {
@@ -16,7 +16,7 @@ router.post('/login', passport.authenticate('local', {
 
 router.get('/register', function(req, res) {
 	
-	res.sendfile(path.join(__dirname, "../public","register.html"))
+	res.sendFile(path.join(__dirname, "../public","register.html"))
 });
 
 router.post('/register', function(req, res, next) {
