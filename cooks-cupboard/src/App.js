@@ -5,6 +5,7 @@ import './App.css';
 import logo from './assets/CClogo_white.png'; // Tell Webpack this JS file uses this image
 import SearchRecipe from './components/SearchRecipe';
 import APIRecipeCard from './components/APIRecipeCard';
+import AddRecipe from './components/AddRecipe';
 
 // Helper for making AJAX requests to our API
 var helpers = require("./utils/helpers");
@@ -85,7 +86,9 @@ setQuery(term, diet, health) {
             <APIRecipeCard apiResults={this.state.apiResults}/>
           </div>
 
+            <AddRecipe/>
         </div>
+          
       </div>
     );
   }
