@@ -9,6 +9,7 @@ mongoose.Promise = Promise;
 var Recipe = require("./models/Recipe.js");
 
 
+
 var app = express();
 
 // Configure app with morgan and body parser
@@ -23,6 +24,10 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 // Static file support with public folder
 app.use(express.static("public"));
+
+app.use(require('./routes/general'));
+
+app.use(require('./routes/auth'));
  
 
 // connecting mongoose to datbase using mongoose-connection-promise npm
@@ -41,31 +46,6 @@ mongooseConnection.connect()
     console.log(err);
   });
 
-
-app.get("/robots", function(req, res) {
-	Robot.find(function (error, doc) {
-        if (error) {
-            res.send(error);
-        }
-        else {
-            res.send(doc);
-        }
-    });
-});
-
-app.post("/robots", function(req, res) {
-    
-    var robot = new Robot(req.body);
-
-	robot.save(function (error, doc) {
-        if (error) {
-            res.send(error);
-        }
-        else {
-            res.send(doc);
-        }
-    });
-});
 
 app.listen(8000, function() {
   console.log("App running on port 8000!");
