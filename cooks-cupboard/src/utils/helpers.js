@@ -12,10 +12,20 @@ var helper = {
     // Search for articles
     var queryURL = "https://api.edamam.com/search?q=" + term + "&app_id=ef316e31&app_key=461d0411e8ce0762dbb22002d91b424d&from=0&to=12";
 
-    return axios.get(queryURL).then(function(response) {
+    if(diet) {
+      queryURL = queryURL + "&dietLabel=" + diet;
+      console.log(queryURL);
+    }
 
-      console.log("from helpers:  ");
-      	console.log(response.data.hits);
+    if(health) {
+      queryURL = queryURL + "&healthLabel=" + health;
+      console.log(queryURL);
+    }
+
+    return axios.get(queryURL).then(function(response) {
+console.log(queryURL);
+      // console.log("from helpers:  ");
+      	// console.log(response.data.hits);
       return response.data.hits;
     });
   },

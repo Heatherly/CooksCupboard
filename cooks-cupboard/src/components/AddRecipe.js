@@ -46,11 +46,11 @@ render() {
                         <input id="term" className="form-control" type="text" placeholder="Title" value={this.state.term} onChange={this.handleChange} required />
                     </div>
                     
-                  <div class="form-group">
+                  <div className="form-group">
                     <label htmlFor="ingredients">Ingredients: </label>
                     <textarea class="form-control" id="ingredients" rows="3" value={this.state.ingredients} onChange={this.handleChange}></textarea>
                   </div>
-                  <div class="form-group">
+                  <div className="form-group">
                     <label htmlFor="notes">Directions/Notes: </label>
                     <textarea class="form-control" id="notes" rows="3"value={this.state.notes} onChange={this.handleChange}></textarea>
                   </div>
