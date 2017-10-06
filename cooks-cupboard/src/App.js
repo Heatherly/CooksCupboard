@@ -73,6 +73,7 @@ setQuery(term, diet, health) {
                         </ul>
                         <span className="navbar-text">
                           <em>Let's get cooking!</em>
+                          <a href="/logout">Logout</a>
                         </span>
                     </div>
                 </nav>
