@@ -48,11 +48,11 @@ render() {
                     
                   <div className="form-group">
                     <label htmlFor="ingredients">Ingredients: </label>
-                    <textarea class="form-control" id="ingredients" rows="3" value={this.state.ingredients} onChange={this.handleChange}></textarea>
+                    <textarea className="form-control" id="ingredients" rows="3" value={this.state.ingredients} onChange={this.handleChange}></textarea>
                   </div>
                   <div className="form-group">
                     <label htmlFor="notes">Directions/Notes: </label>
-                    <textarea class="form-control" id="notes" rows="3"value={this.state.notes} onChange={this.handleChange}></textarea>
+                    <textarea className="form-control" id="notes" rows="3"value={this.state.notes} onChange={this.handleChange}></textarea>
                   </div>
 
                   <div className="form-group">

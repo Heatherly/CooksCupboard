@@ -20,11 +20,11 @@ class APIrecipes extends React.Component {
                     {this.props.apiResults.map((recipeInfo, i) => {
                       return (
 
-                        <div class="card">
-                          <img class="card-img-top" src={recipeInfo.recipe.image} alt={recipeInfo.recipe.label}/>
-                          <div class="card-body">
-                            <h4 class="card-title">{recipeInfo.recipe.label}</h4>
-                            <ul class="card-text">INGREDIENTS: 
+                        <div className="card" key={i}>
+                          <img className="card-img-top" src={recipeInfo.recipe.image} alt={recipeInfo.recipe.label}/>
+                          <div className="card-body">
+                            <h4 className="card-title">{recipeInfo.recipe.label}</h4>
+                            <ul className="card-text">INGREDIENTS: 
                                 {recipeInfo.recipe.ingredients.map(function(ing, i) {
                                     return(
                                         <li key={i}>{ing.text}</li>
@@ -34,7 +34,7 @@ class APIrecipes extends React.Component {
                                 }
                                 
                             </ul>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="#" className="btn btn-primary">Go somewhere</a>
                           </div>
                         </div>
                       );

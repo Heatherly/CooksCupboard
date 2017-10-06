@@ -7,6 +7,9 @@ import SearchRecipe from './components/SearchRecipe';
 import APIRecipeCard from './components/APIRecipeCard';
 import AddRecipe from './components/AddRecipe';
 
+// Including the Link component from React Router to navigate within our application without full page reloads
+// var Link = require("react-router").Link;
+
 // Helper for making AJAX requests to our API
 var helpers = require("./utils/helpers");
 
@@ -29,8 +32,7 @@ componentDidUpdate(prevProps, prevState) {
 
  // If we have a new search term, run a new search
     if (prevState.term !== this.state.term) {
-      // console.log("UPDATED");
-      console.log(this.state.term);
+      // console.log(this.state.term);
       // console.log(this.state.diet);
       // console.log(this.state.health);
 
@@ -78,6 +80,7 @@ setQuery(term, diet, health) {
         </header>
 
         <div className="container">
+
           <div className="search-form">
             <SearchRecipe setQuery={this.setQuery} apiResults={this.state.apiResults}/>
           </div>
