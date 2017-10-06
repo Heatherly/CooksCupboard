@@ -2,10 +2,13 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+var session = require('express-session');
+var passport = require('passport');
 
 var Recipe = require("./models/Recipe.js");
+var User = require("./models/User.js");
 
-mongoose.connect('mongod://localhost:27017/cookscupboard', {
+mongoose.connect('mongodb://localhost:27017/cookscupboard', {
   useMongoClient: true
 });
 mongoose.Promise = global.Promise;
@@ -25,6 +28,16 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 // Static file support with public folder
 app.use(express.static("public"));
+
+app.use(session({
+	secret: 'sdkfhjksdhfjdsfj',
+	resave: false,
+	saveUinitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+require('./passportconfig').configure(passport);
 
 app.use(require('./routes/general'));
 
