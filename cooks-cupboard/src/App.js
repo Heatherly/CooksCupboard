@@ -10,7 +10,7 @@ import MyCookbook from './components/MyCookbook';
 
 // Including the Link component from React Router to navigate within our application without full page reloads
 
-import { BrowserRouter, Route, Link, Switch } from 'react-router-dom'
+import { Route, Link, Switch } from 'react-router-dom'
 
 // Helper for making AJAX requests to our API
 var helpers = require("./utils/helpers");
@@ -64,24 +64,26 @@ setQuery(term, diet, health) {
                     <div className="collapse navbar-collapse" id="navbarText">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item active">
-                                <a className="nav-link" href="/home">Home <span className="sr-only">(current)</span></a>
+                                <Link to="/" className="nav-link" href="/">Home</Link>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/login">Log In</a>
                             </li>
                             <li className="nav-item">
-                                <Link to="/add"><span className="nav-link">Add Recipe</span></Link>
+                                <Link to="/add" className="nav-link">Add Recipe</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/mycookbook"><span className="nav-link">My Cookbook</span></Link>
+                                <Link to="/mycookbook" className="nav-link">My Cookbook</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/list"><span className="nav-link">Shopping List</span></Link>
+                                <Link to="/list" className="nav-link">Shopping List</Link>
+                            </li>
+                            <li className="nav-item">
+                              <a className="nav-link" href="/logout">Logout</a>
                             </li>
                         </ul>
                         <span className="navbar-text">
                           <em>Let's get cooking!</em>
-                          <a href="/logout">Logout</a>
                         </span>
                     </div>
                 </nav>
@@ -91,12 +93,8 @@ setQuery(term, diet, health) {
         <div className="container">
 
             <Switch>
+              <Route exact path="/" render={(props) =>(<SearchRecipe setQuery={this.setQuery} apiResults={this.state.apiResults}/>) }/>
               <Route path="/mycookbook" component={MyCookbook}/>
-              <Route path="/home" component={SearchRecipe}/>
-{/*                <SearchRecipe setQuery={this.setQuery} apiResults={this.state.apiResults}/>*/}
-              <Route path="/home" component={APIRecipeCard}/>
-              
-                {/*<APIRecipeCard apiResults={this.state.apiResults}/>*/ }
               <Route path="/add" component={AddRecipe}/>
             </Switch>
 

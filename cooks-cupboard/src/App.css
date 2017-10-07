@@ -81,6 +81,9 @@ header > div {
 	margin-top: 20px;
 }
 
+.recipeCards {
+	margin: 20px 0;
+}
 
 /*Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575px) { ... }
