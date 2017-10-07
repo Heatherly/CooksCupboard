@@ -71,13 +71,38 @@ render() {
 				  	</div>
 				 
 				 <div className="form-group">
-					<button type="submit" className="btn btn-primary" value="search">Search</button>
+					<button type="submit" className="btn btn-primary" value={recipe._id} onClick={this.handleSave}>Save to MyCookbook</button>
 				  </div>
 				  <div id="edamam-badge" data-color="dark"></div>
 				</form>
 			
+{/*THIS IS WHERE API RESULTS WILL DISPLAY*/}
+			<div className="recipeCards">
+	          <div className="card-columns">
+                {this.props.apiResults.map((recipeInfo, i) => {
+                  return (
 
-            
+                    <div className="card" key={i}>
+                      <img className="card-img-top" src={recipeInfo.recipe.image} alt={recipeInfo.recipe.label}/>
+                      <div className="card-body">
+                        <h4 className="card-title">{recipeInfo.recipe.label}</h4>
+                        <ul className="card-text">INGREDIENTS: 
+                            {recipeInfo.recipe.ingredients.map(function(ing, i) {
+                                return(
+                                    <li key={i}>{ing.text}</li>
+                                )
+                            })
+                                
+                            }
+                            
+                        </ul>
+                        <a href="#" className="btn btn-primary">Go somewhere</a>
+                      </div>
+                    </div>
+                  );
+                })}
+	           </div>
+	        </div>  
 
       </div>
     );
