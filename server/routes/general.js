@@ -1,5 +1,6 @@
 var router = require('express').Router();
 var Recipe = require("../models/Recipe.js");
+var User = require("../models/User.js");
 
 
 var path = require('path');
@@ -39,7 +40,7 @@ router.post('/save', function(req, res) {
 	});
 });
 
-router.get("/mycookbook", function(req, res) {
+router.get("/myfaves", function(req, res) {
 	User.findOne({ username: req.user.username
 	})
 		
