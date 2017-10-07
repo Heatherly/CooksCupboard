@@ -43,4 +43,17 @@ router.get('/logout', function(req, res) {
 	res.redirect('/home');
 });
 
+router.get("/user", function(req, res) {
+	User.findOne({
+		username: req.user.username
+	}, function(err, doc) {
+		if (err) {
+			res.send(err);
+		}
+		else {
+			res.send(doc);
+		}
+	});
+});
+
 module.exports = router; 
