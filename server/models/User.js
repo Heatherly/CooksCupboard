@@ -1,9 +1,12 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
+var Schema = mongoose.Schema;
+
 var userSchema = new mongoose.Schema({
 	username: { type: String, unique: true, require: true },
-	passwordHash: { type: String, require: true }
+	passwordHash: { type: String, require: true },
+	recipes: [{ type: Schema.Types.ObjectId, ref: "Recipe"}]
 });
 
 
