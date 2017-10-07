@@ -66,7 +66,7 @@ header > div {
 	text-align: center;
 }
 
-#searchAPI .btn-primary {
+.btn-primary {
 	background-color: #FF6600;
 	border-color: #333;
 }

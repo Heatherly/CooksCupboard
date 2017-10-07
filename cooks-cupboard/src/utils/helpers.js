@@ -1,21 +1,32 @@
 // Include the axios package for performing HTTP requests (promise based alternative to request)
 var axios = require("axios");
 
-// Geocoder API
-// var authKey = "b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
-
 // Helper functions for making API Calls
 var helper = {
 
   // This function serves our purpose of running the query to geolocate.
   runQuery: function(term, diet, health) {
     // Search for articles
-    var queryURL = "https://api.edamam.com/search?q=" + term + "&app_id=ef316e31&app_key=461d0411e8ce0762dbb22002d91b424d&from=0&to=12";
+
+    var app_id = "af283a48";
+    var api_key = "68eec6cfd890e362c1e6f52639a8d8bf";
+
+    var queryURL = "https://api.edamam.com/search?" + "&app_id=" + app_id + "&app_key=" + api_key + "&q=" + term + "&from=0&to=12";
+
+    if(diet) {
+      queryURL = queryURL + "&diet=" + diet;
+      console.log(queryURL);
+    }
+
+    if(health) {
+      queryURL = queryURL + "&health=" + health;
+      console.log(queryURL);
+    }
 
     return axios.get(queryURL).then(function(response) {
-
-      console.log("from helpers:  ");
-      	console.log(response.data.hits);
+console.log(queryURL);
+      // console.log("from helpers:  ");
+      	// console.log(response.data.hits);
       return response.data.hits;
     });
   },

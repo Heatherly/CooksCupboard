@@ -5,6 +5,12 @@ import './App.css';
 import logo from './assets/CClogo_white.png'; // Tell Webpack this JS file uses this image
 import SearchRecipe from './components/SearchRecipe';
 import APIRecipeCard from './components/APIRecipeCard';
+import AddRecipe from './components/AddRecipe';
+import MyCookbook from './components/MyCookbook';
+
+// Including the Link component from React Router to navigate within our application without full page reloads
+
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom'
 
 // Helper for making AJAX requests to our API
 var helpers = require("./utils/helpers");
@@ -28,8 +34,7 @@ componentDidUpdate(prevProps, prevState) {
 
  // If we have a new search term, run a new search
     if (prevState.term !== this.state.term) {
-      // console.log("UPDATED");
-      console.log(this.state.term);
+      // console.log(this.state.term);
       // console.log(this.state.diet);
       // console.log(this.state.health);
 
@@ -65,7 +70,13 @@ setQuery(term, diet, health) {
                                 <a className="nav-link" href="/login">Log In</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">My Cookbook</a>
+                                <Link to="/add"><span className="nav-link">Add Recipe</span></Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/mycookbook"><span className="nav-link">My Cookbook</span></Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/list"><span className="nav-link">Shopping List</span></Link>
                             </li>
                         </ul>
                         <span className="navbar-text">
@@ -78,15 +89,19 @@ setQuery(term, diet, health) {
         </header>
 
         <div className="container">
-          <div className="search-form">
-            <SearchRecipe setQuery={this.setQuery} apiResults={this.state.apiResults}/>
-          </div>
 
-          <div className="api-results">
-            <APIRecipeCard apiResults={this.state.apiResults}/>
-          </div>
+            <Switch>
+              <Route path="/mycookbook" component={MyCookbook}/>
+              <Route path="/home" component={SearchRecipe}/>
+{/*                <SearchRecipe setQuery={this.setQuery} apiResults={this.state.apiResults}/>*/}
+              <Route path="/home" component={APIRecipeCard}/>
+              
+                {/*<APIRecipeCard apiResults={this.state.apiResults}/>*/ }
+              <Route path="/add" component={AddRecipe}/>
+            </Switch>
 
         </div>
+          
       </div>
     );
   }
