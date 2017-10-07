@@ -71,8 +71,8 @@ render() {
 				  	</div>
 				 
 				 <div className="form-group">
-					<button type="submit" className="btn btn-primary" value={recipe._id} onClick={this.handleSave}>Save to MyCookbook</button>
-				  </div>
+					<button type="submit" className="btn btn-primary" value="search">Search</button>
+          </div>
 				  <div id="edamam-badge" data-color="dark"></div>
 				</form>
 			
@@ -96,7 +96,8 @@ render() {
                             }
                             
                         </ul>
-                        <a href="#" className="btn btn-primary">Go somewhere</a>
+                      {/*NEED TO ADD TO SAVE BUTTON LATER: value={recipe._id}*/}
+                        <a type="submit" className="btn btn-primary"  onClick={this.handleSave}>Save to MyCookbook</a>
                       </div>
                     </div>
                   );

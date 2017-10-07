@@ -9,6 +9,11 @@ class MyCookbook extends React.Component {
 
         }
     
+componentDidMount() {
+// use fetch() to get the saved recipes for this user from our api at /myfaves
+
+    }
+
 
     render() {
         // const props = {...this.props};
@@ -49,8 +54,6 @@ class MyCookbook extends React.Component {
   
   }
 
-    componentDidMount() {
-    }
-};
+    };
 
 export default MyCookbook;
