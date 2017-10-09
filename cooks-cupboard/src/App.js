@@ -25,8 +25,9 @@ constructor(props) {
       diet: "",
       health: "",
       apiResults:[]
-    };
+  }
 
+  this.createRecipe = this.createRecipe.bind(this);
     this.setQuery = this.setQuery.bind(this);
   }
 
@@ -34,12 +35,9 @@ componentDidUpdate(prevProps, prevState) {
 
  // If we have a new search term, run a new search
     if (prevState.term !== this.state.term) {
-      // console.log(this.state.term);
-      // console.log(this.state.diet);
-      // console.log(this.state.health);
 
   helpers.runQuery(this.state.term, this.state.diet, this.state.health).then(function(data) {
-       // console.log(data);
+       console.log(data);
        this.setState({ apiResults: data });
         }.bind(this));
     };
@@ -50,6 +48,12 @@ componentDidUpdate(prevProps, prevState) {
 setQuery(term, diet, health) {
     this.setState({ term: term, diet: diet, health: health });
   }
+
+createRecipe(recipe) {
+  this.setState(prevState => ({
+      recipes: [...prevState.recipes, recipe]
+   })); {/*... -> is SPREAD OPERATOR - READ UP ON THIS!!*/}
+}
 
   render() {
     return (
@@ -93,7 +97,7 @@ setQuery(term, diet, health) {
         <div className="container">
 
             <Switch>
-              <Route exact path="/" render={(props) =>(<SearchRecipe setQuery={this.setQuery} apiResults={this.state.apiResults}/>) }/>
+              <Route exact path="/" render={(props) =>(<SearchRecipe setQuery={this.setQuery} createRecipe={this.createRecipe} apiResults={this.state.apiResults} recipes={this.state.recipes} />) }/>
               <Route path="/mycookbook" component={MyCookbook}/>
               <Route path="/add" component={AddRecipe}/>
             </Switch>

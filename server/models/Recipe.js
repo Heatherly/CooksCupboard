@@ -20,7 +20,7 @@ var RecipeSchema = new Schema({
     ingredients: {
     type: String,
     trim: true,
-    required: "Power Level required"
+    required: "Ingredients required"
   },
     source: {
     type: String,

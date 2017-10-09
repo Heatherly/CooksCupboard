@@ -13,7 +13,26 @@ class APIrecipes extends React.Component {
         super(props);
 
         }
-    
+ clickMakeRecipe() {
+      // alert(JSON.stringify(this.robot));
+        const props = {...this.props}; {/*ES6: spreads out props into a new variable, spreads out all the key value pairs*/}
+        
+        fetch("./save", {
+            method: "POST",
+            body: JSON.stringify(this.robot),
+            headers: { "Content-Type": "application/json" }
+        }).then(response => {
+            var contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+                return response.json();
+            }
+            throw new TypeError("Oops, we haven't got JSON!");
+        })
+            .then(json => {
+                props.createRecipe({ ...json });
+            })
+            .catch(error => { console.log(error); });
+    }   
 
     render() {
         // const props = {...this.props};
@@ -39,7 +58,7 @@ class APIrecipes extends React.Component {
                                 }
                                 
                             </ul>
-                            <a type="submit" className="btn btn-primary" onClick={this.handleSave}>Save to MyCookbook</a>
+                            <a type="submit" className="btn btn-primary" onClick={this.clickMakeRecipe}>Save to MyCookbook</a>
                           </div>
                         </div>
                       );

@@ -1,5 +1,8 @@
 import React from 'react';
 
+// Helper for making AJAX requests to our API
+var helpers = require("../utils/helpers");
+
 class SearchRecipe extends React.Component {
 	constructor(props) {
 	super(props);
@@ -7,12 +10,14 @@ class SearchRecipe extends React.Component {
 	this.state = {
       term: "",
       diet: "",
-      health: ""
+      health: "",
+      recipesArray: []
     };
 
 
 	this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  this.handleSubmit = this.handleSubmit.bind(this);
+  this.handleSave = this.handleSave.bind(this);
   }
 
   handleChange(event) { //looks for any changes on multiple form fields
@@ -31,7 +36,29 @@ class SearchRecipe extends React.Component {
     this.setState({ term: "", startYear: "", endYear: "" });
   }
 
+handleSave(event){
+    // Collect the clicked recipe's id
+    var recipeId = event.target.value;
+    console.log(recipeId);
 
+    // Collect the clicked article's attributes
+    var saveRecipeObj;
+    for (var i = 0; i < this.state.recipesArray.length; i++) {
+      if (this.state.recipesArray[i].id === recipeId) {
+        saveRecipeObj = this.state.recipesArray[i];
+      }
+    }
+console.log("Save recipe object");
+console.log(saveRecipeObj);
+    // Send this data to the my API endpoint to save it to Mongo
+    helpers.apiSave(saveRecipeObj).then(() => {
+      alert("Recipe saved!");
+      //Query Mongo again for new updated data, and re-render the component Saved.js
+      // helpers.apiGet().then(query => {
+      //   this.props.refreshMongoResults(query.data);
+      // });
+    });
+}
 
 render() {
     return (
@@ -80,6 +107,18 @@ render() {
 			<div className="recipeCards">
 	          <div className="card-columns">
                 {this.props.apiResults.map((recipeInfo, i) => {
+
+                    // Build array of recipes
+                    this.state.recipesArray.push({
+                      id: i,
+                      title: recipeInfo.recipe.label,
+                      ingredients: recipeInfo.recipe.ingredients,
+                      source: recipeInfo.recipe.source,
+                      sourceURL: recipeInfo.recipe.url,
+                      picURL: recipeInfo.recipe.image,
+                      notes: ""
+                    });
+                    console.log(this.state.recipesArray);
                   return (
 
                     <div className="card" key={i}>
@@ -96,8 +135,8 @@ render() {
                             }
                             
                         </ul>
-                      {/*NEED TO ADD TO SAVE BUTTON LATER: value={recipe._id}*/}
-                        <a type="submit" className="btn btn-primary"  onClick={this.handleSave}>Save to MyCookbook</a>
+                        <p>Source: <a href={recipeInfo.recipe.url}>{recipeInfo.recipe.source}</a></p>
+                        <a type="button" className="btn btn-primary" value={i} onClick={this.handleSave}>Save to MyCookbook</a>
                       </div>
                     </div>
                   );
