@@ -24,9 +24,7 @@ var helper = {
     }
 
     return axios.get(queryURL).then(function(response) {
-console.log(queryURL);
-      // console.log("from helpers:  ");
-      	// console.log(response.data.hits);
+      console.log(queryURL);
       return response.data.hits;
     });
   },
@@ -36,35 +34,38 @@ console.log(queryURL);
 //     return axios.get("/api");
 //   },
 
-// // API Post Request Function
-//   apiSave: function(articleObj){
+// API Post Request Function
+  apiSave: function(recipeObj){
 
-//   // Get API Post URL (this allows it to work in both localhost and heroku)
-//   var apiURL = window.location.origin + '/api/saved';
+  // Get API Post URL (this allows it to work in both localhost and heroku)
+  var apiURL = window.location.origin + '/save';
 
-//   // Create a JavaScript *Promise*
-//   return new Promise(function (fulfill, reject){
+  // Create a JavaScript *Promise*
+  return new Promise(function (fulfill, reject){
 
-//     // Re-format the article Object to match the Mongo Model (ie we need to take off the the id)
-//     var params = new URLSearchParams();
-//     params.append("title", articleObj.title);
-//     params.append("date", articleObj.date);
-//     params.append("url", articleObj.url);
-//     axios.post(apiURL, params).then(function(response){
+    // Re-format the article Object to match the Mongo Model (ie we need to take off the the id)
+    var params = new URLSearchParams();
+    params.append("title", recipeObj.title);
+    params.append("ingredients", recipeObj.ingredients);
+    params.append("source", recipeObj.source);
+    params.append("sourceURL", recipeObj.sourceURL);
+    params.append("picURL", recipeObj.picURL);
+    params.append("notes", recipeObj.notes);
+    axios.post(apiURL, params).then(function(response){
 
-//       // Error handling / fullfil promise if successful query
-//       if(response){
-//         fulfill(response);
-//       }
-//       else{
-//         reject("");
-//       }
+      // Error handling / fullfil promise if successful query
+      if(response){
+        fulfill(response);
+      }
+      else{
+        reject("");
+      }
       
-//     })
+    })
 
-//   });
+  });
   
-// },
+},
 
 // // API Post Request Function
 //   apiGet: function(query){
