@@ -1,15 +1,13 @@
 //THIS FILE SERVES AS OUR MAIN.js//
-
 import React, { Component } from 'react';
 import './App.css';
 import logo from './assets/CClogo_white.png'; // Tell Webpack this JS file uses this image
 import SearchRecipe from './components/SearchRecipe';
-import APIRecipeCard from './components/APIRecipeCard';
+// import APIRecipeCard from './components/APIRecipeCard';
 import AddRecipe from './components/AddRecipe';
 import MyCookbook from './components/MyCookbook';
 
 // Including the Link component from React Router to navigate within our application without full page reloads
-
 import { Route, Link, Switch } from 'react-router-dom'
 
 // Helper for making AJAX requests to our API
@@ -17,54 +15,52 @@ var helpers = require("./utils/helpers");
 
 class App extends Component {
 
-constructor(props) {
-    super(props);
+  constructor(props) {
+      super(props);
 
-    this.state = {
-      term: "",
-      diet: "",
-      health: "",
-      apiResults:[]
-  }
+      this.state = {
+        term: "",
+        diet: "",
+        health: "",
+        apiResults:[]
+    }
 
-  this.createRecipe = this.createRecipe.bind(this);
+    this.createRecipe = this.createRecipe.bind(this);
     this.setQuery = this.setQuery.bind(this);
   }
 
-componentDidUpdate(prevProps, prevState) {
-
- // If we have a new search term, run a new search
+  componentDidUpdate(prevProps, prevState) {
+   // If we have a new search term, run a new search
     if (prevState.term !== this.state.term) {
 
-  helpers.runQuery(this.state.term, this.state.diet, this.state.health).then(function(data) {
-       console.log(data);
-       this.setState({ apiResults: data });
-        }.bind(this));
-    };
+    helpers.runQuery(this.state.term, this.state.diet, this.state.health).then(function(data) {
+         console.log(data);
+         this.setState({ apiResults: data });
+          }.bind(this));
+      };
   }
 
-
- //  // This function allows the child Search to update the parent.
-setQuery(term, diet, health) {
-    this.setState({ term: term, diet: diet, health: health });
+  // This function allows the child Search to update the parent.
+  setQuery(term, diet, health) {
+      this.setState({ term: term, diet: diet, health: health });
   }
 
-createRecipe(recipe) {
-  this.setState(prevState => ({
-      recipes: [...prevState.recipes, recipe]
-   })); {/*... -> is SPREAD OPERATOR - READ UP ON THIS!!*/}
-}
+  createRecipe(recipe) {
+    this.setState(prevState => ({
+        recipes: [...prevState.recipes, recipe]
+     })); {/*... -> is SPREAD OPERATOR - READ UP ON THIS!!*/}
+  }
 
   render() {
     return (
       <div className="container-fluid">
         <header>
             <div className="header">
-                <img src={logo} id="header-logo" alt="Cook's Cupboard"/>
+              <img src={logo} id="header-logo" alt="Cook's Cupboard"/>
                 <nav className="navbar navbar-expand-lg navbar-light">
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
+                  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                      <span className="navbar-toggler-icon"></span>
+                  </button>
                     <div className="collapse navbar-collapse" id="navbarText">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item active">

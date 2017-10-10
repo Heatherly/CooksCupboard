@@ -33,21 +33,23 @@ class SearchRecipe extends React.Component {
     this.props.setQuery(this.state.term, this.state.diet, this.state.health);
     //gives the properties up to App to perform API Search
     //resets the state
-    this.setState({ term: "", startYear: "", endYear: "" });
+    this.setState({ term: "", diet: "", health: "" });
   }
 
 handleSave(event){
     // Collect the clicked recipe's id
-    var recipeId = event.target.value;
+    var recipeId = event.target.id;
     console.log(recipeId);
 
     // Collect the clicked article's attributes
-    var saveRecipeObj;
-    for (var i = 0; i < this.state.recipesArray.length; i++) {
-      if (this.state.recipesArray[i].id === recipeId) {
-        saveRecipeObj = this.state.recipesArray[i];
-      }
-    }
+    var  saveRecipeObj = this.state.recipesArray[recipeId];
+    // for (var i = 0; i < this.state.recipesArray.length; i++) {
+    //   if (this.state.recipesArray[i].id === recipeId) {
+    //     saveRecipeObj = this.state.recipesArray[i];
+    //   } else {
+    //     console.log("no match found");
+    //   }
+    // }
 console.log("Save recipe object");
 console.log(saveRecipeObj);
     // Send this data to the my API endpoint to save it to Mongo
@@ -136,7 +138,7 @@ render() {
                             
                         </ul>
                         <p>Source: <a href={recipeInfo.recipe.url}>{recipeInfo.recipe.source}</a></p>
-                        <a type="button" className="btn btn-primary" value={i} onClick={this.handleSave}>Save to MyCookbook</a>
+                        <a type="button" className="btn btn-primary" id={i} onClick={this.handleSave}>Save to MyCookbook</a>
                       </div>
                     </div>
                   );
