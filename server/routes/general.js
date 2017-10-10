@@ -22,7 +22,7 @@ router.get('/home', function(req, res) {
 
 router.post('/save', function(req, res) {
 	var newRecipe = new Recipe(req.body);
-
+	console.log(req.body);
 	newRecipe.save(function(err, doc) {
 		if (err) {
 			res.send(err);
