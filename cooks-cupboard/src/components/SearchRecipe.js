@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Helper for making AJAX requests to our API
-var helpers = require("../utils/helpers");
+const helpers = require("../utils/helpers");
 
 class SearchRecipe extends React.Component {
 	constructor(props) {
@@ -109,12 +109,16 @@ render() {
 			<div className="recipeCards">
 	          <div className="card-columns">
                 {this.props.apiResults.map((recipeInfo, i) => {
-
+                    let ingArray = [];
+                    for (var j = 0; j < recipeInfo.recipe.ingredients.length; j++) {
+                      ingArray.push(recipeInfo.recipe.ingredients[j].text);
+                    }
                     // Build array of recipes
                     this.state.recipesArray.push({
                       id: i,
                       title: recipeInfo.recipe.label,
-                      ingredients: recipeInfo.recipe.ingredients,
+                      // ingredients: recipeInfo.recipe.ingredients,
+                      ingredients: ingArray.join(";"),
                       source: recipeInfo.recipe.source,
                       sourceURL: recipeInfo.recipe.url,
                       picURL: recipeInfo.recipe.image,
