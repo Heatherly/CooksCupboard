@@ -11,16 +11,16 @@ var helper = {
     var app_id = "af283a48";
     var api_key = "68eec6cfd890e362c1e6f52639a8d8bf";
 
-    var queryURL = "https://api.edamam.com/search?" + "&app_id=" + app_id + "&app_key=" + api_key + "&q=" + term + "&from=0&to=12";
+    var queryURL = "https://api.edamam.com/search?&app_id=" + app_id + "&app_key=" + api_key + "&q=" + term + "&from=0&to=12";
 
     if(diet) {
       queryURL = queryURL + "&diet=" + diet;
-      console.log(queryURL);
+      // console.log(queryURL);
     }
 
     if(health) {
       queryURL = queryURL + "&health=" + health;
-      console.log(queryURL);
+      // console.log(queryURL);
     }
 
     return axios.get(queryURL).then(function(response) {
@@ -51,6 +51,7 @@ var helper = {
     params.append("sourceURL", recipeObj.sourceURL);
     params.append("picURL", recipeObj.picURL);
     params.append("notes", recipeObj.notes);
+    // params.append("username", req.user.username) //NOT SURE IF THIS IS HOW I ADD IN USERNAME DATA OR NOT???
     axios.post(apiURL, params).then(function(response){
 
       // Error handling / fullfil promise if successful query
@@ -67,33 +68,33 @@ var helper = {
   
 },
 
-// // API Post Request Function
-//   apiGet: function(query){
+// // API Get Request Function
+  apiGet: function(query){
 
-//   // Get API Post URL (this allows it to work in both localhost and heroku)
-//   var apiURL = window.location.origin + '/api';
+  // Get API Post URL (this allows it to work in both localhost and heroku)
+  var apiURL = window.location.origin + '/api';
 
-//   // Create a JavaScript *Promise*
-//   return new Promise(function (fulfill, reject){
+  // Create a JavaScript *Promise*
+  return new Promise(function (fulfill, reject){
 
-//     // Re-format the article Object to match the Mongo Model (ie we need to take off the the id)
-//     axios.get(apiURL).then(function(response) {
+    // Re-format the article Object to match the Mongo Model (ie we need to take off the the id)
+    axios.get(apiURL).then(function(response) {
 
-//       // Error handling / fullfil promise if successful query
-//       if(response){
-//         fulfill(response);
-//       }
-//       else{
-//         reject("");
-//       }
+      // Error handling / fullfil promise if successful query
+      if(response){
+        fulfill(response);
+      }
+      else{
+        reject("");
+      }
 
-//     });
+    });
     
-//   });
+  });
   
-// },
+},
 
-// // API Post Request Function
+// // API Delete Request Function
 // apiDelete: function(deleteArticleId){
 
 //   // Get API Post URL (this allows it to work in both localhost and heroku)

@@ -3,15 +3,16 @@ import React, { Component } from 'react';
 import './App.css';
 import logo from './assets/CClogo_white.png'; // Tell Webpack this JS file uses this image
 import SearchRecipe from './components/SearchRecipe';
-// import APIRecipeCard from './components/APIRecipeCard';
 import AddRecipe from './components/AddRecipe';
 import MyCookbook from './components/MyCookbook';
+import Login from './components/Login';
+import Register from './components/Register';
 
 // Including the Link component from React Router to navigate within our application without full page reloads
 import { Route, Link, Switch } from 'react-router-dom'
 
 // Helper for making AJAX requests to our API
-var helpers = require("./utils/helpers");
+const helpers = require("./utils/helpers");
 
 class App extends Component {
 
@@ -46,9 +47,9 @@ class App extends Component {
   }
 
   createRecipe(recipe) {
-    this.setState(prevState => ({
+    /*this.setState(prevState => ({
         recipes: [...prevState.recipes, recipe]
-     })); {/*... -> is SPREAD OPERATOR - READ UP ON THIS!!*/}
+     })); ... -> is SPREAD OPERATOR - READ UP ON THIS!!*/
   }
 
   render() {
@@ -63,23 +64,35 @@ class App extends Component {
                   </button>
                     <div className="collapse navbar-collapse" id="navbarText">
                         <ul className="navbar-nav mr-auto">
-                            <li className="nav-item active">
-                                <Link to="/" className="nav-link" href="/">Home</Link>
+                            <li className="nav-item">
+                                <Link to="/" className="nav-link">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/login">Log In</a>
+                                <Link to="/login" className="nav-link">Log In</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/add" className="nav-link">Add Recipe</Link>
+                                <Link to="/register" className="nav-link">Register</Link>
+                            </li>
+                            <li className="nav-item">
+                                <span className="nav-link">|</span>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/" className="nav-link">Search</Link>
                             </li>
                             <li className="nav-item">
                                 <Link to="/mycookbook" className="nav-link">My Cookbook</Link>
                             </li>
                             <li className="nav-item">
+                                <Link to="/add" className="nav-link">Add Recipe</Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link to="/list" className="nav-link">Shopping List</Link>
                             </li>
                             <li className="nav-item">
-                              <a className="nav-link" href="/logout">Logout</a>
+                                <span className="nav-link">|</span>
+                            </li>
+                            <li className="nav-item">
+                              <Link to="/logout" className="nav-link">Logout</Link>
                             </li>
                         </ul>
                         <span className="navbar-text">
@@ -96,6 +109,8 @@ class App extends Component {
               <Route exact path="/" render={(props) =>(<SearchRecipe setQuery={this.setQuery} createRecipe={this.createRecipe} apiResults={this.state.apiResults} recipes={this.state.recipes} />) }/>
               <Route path="/mycookbook" component={MyCookbook}/>
               <Route path="/add" component={AddRecipe}/>
+              <Route path="/login" component={Login}/>
+              <Route path="/register" component={Register}/>
             </Switch>
 
         </div>
