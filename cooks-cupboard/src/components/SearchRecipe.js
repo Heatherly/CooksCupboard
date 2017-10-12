@@ -1,4 +1,5 @@
 import React from 'react';
+import '../App.css';
 
 // Helper for making AJAX requests to our API
 const helpers = require("../utils/helpers");
@@ -20,6 +21,9 @@ class SearchRecipe extends React.Component {
   this.handleSave = this.handleSave.bind(this);
   }
 
+componentDidMount() {
+  this.setState({ recipesArray: [] }); //NOT WORKING EITHER!
+}
   handleChange(event) { //looks for any changes on multiple form fields
     var newState = {};
     newState[event.target.id] = event.target.value;
@@ -27,45 +31,31 @@ class SearchRecipe extends React.Component {
   }
 
   handleSubmit(event) {
-  	event.preventDefault();
-    console.log("Passing Query to App parent");
-    // console.log(this.state.term, this.state.diet, this.state.health);
-    this.props.setQuery(this.state.term, this.state.diet, this.state.health);
+   event.preventDefault();
+   this.setState({ recipesArray: [] }); //NOT CLEARING THIS ARRAY AND I DON'T KNOW WHY!!
+    // console.log("Passing Query to App parent");
     //gives the properties up to App to perform API Search
+    this.props.setQuery(this.state.term, this.state.diet, this.state.health);
     //resets the state
-    this.setState({ term: "", diet: "", health: "" });
+    this.setState({ term: "", diet: "", health: ""});
   }
 
 handleSave(event){
     // Collect the clicked recipe's id
     var recipeId = event.target.id;
-    console.log(recipeId);
-
+    // console.log(recipeId);
     // Collect the clicked article's attributes
     var  saveRecipeObj = this.state.recipesArray[recipeId];
-    // for (var i = 0; i < this.state.recipesArray.length; i++) {
-    //   if (this.state.recipesArray[i].id === recipeId) {
-    //     saveRecipeObj = this.state.recipesArray[i];
-    //   } else {
-    //     console.log("no match found");
-    //   }
-    // }
-console.log("Save recipe object");
-console.log(saveRecipeObj);
     // Send this data to the my API endpoint to save it to Mongo
     helpers.apiSave(saveRecipeObj).then(() => {
-      alert("Recipe saved!");
-      //Query Mongo again for new updated data, and re-render the component Saved.js
-      // helpers.apiGet().then(query => {
-      //   this.props.refreshMongoResults(query.data);
-      // });
+      console.log("Recipe saved!");
     });
 }
 
 render() {
     return (
-      <div className={'SearchRecipe'}> {/*//ES6 syntax vs <div className="Search">*/}
-        
+      <div className={'SearchRecipe'}>
+      {/* SEARCH API FORM */}
 			<form id="searchAPI" onSubmit={this.handleSubmit}>
 
 			  	<h2>Search New Recipes</h2>
@@ -117,7 +107,6 @@ render() {
                     this.state.recipesArray.push({
                       id: i,
                       title: recipeInfo.recipe.label,
-                      // ingredients: recipeInfo.recipe.ingredients,
                       ingredients: ingArray.join(";"),
                       source: recipeInfo.recipe.source,
                       sourceURL: recipeInfo.recipe.url,
@@ -142,7 +131,7 @@ render() {
                             
                         </ul>
                         <p>Source: <a href={recipeInfo.recipe.url}>{recipeInfo.recipe.source}</a></p>
-                        <a type="button" className="btn btn-primary" id={i} onClick={this.handleSave}>Save to MyCookbook</a>
+                        <button className="btn btn-primary" id={i} onClick={this.handleSave}>Save to MyCookbook</button>
                       </div>
                     </div>
                   );
