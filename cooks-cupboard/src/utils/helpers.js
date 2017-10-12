@@ -67,6 +67,40 @@ var helper = {
   });
   
 },
+// Post Request Function
+  saveOne: function(recipeObj){
+
+  // Get API Post URL (this allows it to work in both localhost and heroku)
+  var apiURL = window.location.origin + '/save';
+
+  // Create a JavaScript *Promise*
+  return new Promise(function (fulfill, reject){
+
+    // // Re-format the article Object to match the Mongo Model (ie we need to take off the the id)
+    // var params = new URLSearchParams();
+    // params.append("title", recipeObj.title);
+    // params.append("ingredients", recipeObj.ingredients);
+    // params.append("source", recipeObj.source);
+    // params.append("sourceURL", recipeObj.sourceURL);
+    // params.append("picURL", recipeObj.picURL);
+    // params.append("notes", recipeObj.notes);
+    // params.append("username", req.user.username) //NOT SURE IF THIS IS HOW I ADD IN USERNAME DATA OR NOT???
+    axios.post(apiURL).then(function(response){
+
+      // Error handling / fullfil promise if successful query
+      if(response){
+        fulfill(response);
+      }
+      else{
+        reject("");
+      }
+      
+    })
+
+  });
+  
+},
+
 
 // // API Get Request Function
   apiGet: function(query){
