@@ -10,14 +10,10 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login', passport.authenticate('local', {
-	successRedirect: '/home',
+	successRedirect: '/',
 	failureRedirect: '/login'
 }));
 
-router.get('/register', function(req, res) {
-	
-	res.sendFile(path.join(__dirname, "../public","register.html"))
-});
 
 router.post('/register', function(req, res, next) {
 
@@ -35,12 +31,13 @@ router.post('/register', function(req, res, next) {
 		
 	});
 }, passport.authenticate('local', {
-	successRedirect: '/home',
+	successRedirect: '/',
 }));
 
 router.get('/logout', function(req, res) {
 	req.logout();
-	res.redirect('/home');
+	 req.session.destroy();
+	res.redirect('/login');
 });
 
 router.get("/user", function(req, res) {

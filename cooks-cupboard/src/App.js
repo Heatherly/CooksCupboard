@@ -92,7 +92,7 @@ class App extends Component {
                                 <span className="nav-link">|</span>
                             </li>
                             <li className="nav-item">
-                              <Link to="/logout" className="nav-link">Logout</Link>
+                              <a href="/logout" className="nav-link">Logout</a>
                             </li>
                         </ul>
                         <span className="navbar-text">
