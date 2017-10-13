@@ -29,10 +29,10 @@ var helper = {
     });
   },
 
-//   // This function hits our own server to retrieve the record of query results
-//   getArticles: function() {
-//     return axios.get("/api");
-//   },
+  // This function hits our own server to retrieve the record of query results
+  getRecipes: function() {
+    return axios.get("/myfaves");
+  },
 
 // API Post Request Function
   apiSave: function(recipeObj){
@@ -106,7 +106,7 @@ var helper = {
   apiGet: function(query){
 
   // Get API Post URL (this allows it to work in both localhost and heroku)
-  var apiURL = window.location.origin + '/api';
+  var apiURL = window.location.origin + '/myfaves';
 
   // Create a JavaScript *Promise*
   return new Promise(function (fulfill, reject){
