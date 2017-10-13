@@ -10,17 +10,20 @@ function authRequired(req, res, next) {
 		next();
 	}
 	else {
-		res.redirect('/login');
+		 return res.redirect('/login');
+
 	}
-}
 
+};
 
-router.get('/home', function(req, res) {
-	console.log('the user?', req.user);
-	res.sendFile(path.join(__dirname, "../public","index.html"))
+router.get('/login', function(req, res) {
+	
+	res.sendFile(path.join(__dirname, "../public","login.html"))
 });
 
-router.post('/save', function(req, res) {
+
+router.post('/save', authRequired, function(req, res) {
+	console.log('the user?', req.user);
 	var newRecipe = new Recipe(req.body);
 	console.log(req.body);
 	newRecipe.save(function(err, doc) {
@@ -40,7 +43,7 @@ router.post('/save', function(req, res) {
 	});
 });
 
-router.get("/myfaves", function(req, res) {
+router.get("/myfaves", authRequired, function(req, res) {
 	User.findOne({ username: req.user.username
 	})
 		
