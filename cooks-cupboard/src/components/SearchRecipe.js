@@ -1,11 +1,20 @@
 import React from 'react';
+import AlertContainer from 'react-alert';
 import '../App.css';
+import {realAuth} from '../App';
+import App from '../App';
+import history from './history';
+import { Route, Link, Switch, Redirect } from 'react-router-dom'
 
 // Helper for making AJAX requests to our API
 const helpers = require("../utils/helpers");
 
+
+  
+
 class SearchRecipe extends React.Component {
-	constructor(props) {
+	
+  constructor(props) {
 	super(props);
 
 	this.state = {
@@ -19,7 +28,24 @@ class SearchRecipe extends React.Component {
 	this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
   this.handleSave = this.handleSave.bind(this);
+  // this.showAlert = this.showAlert.bind(this);
   }
+
+  //  alertOptions = {
+  //   offset: 14,
+  //   position: 'bottom left',
+  //   theme: 'dark',
+  //   time: 5000,
+  //   transition: 'scale'
+  // }
+ 
+  // showAlert = () => {
+  //   this.msg.show('Please login to save recipes', {
+  //     time: 2000,
+  //     type: 'error'
+  //   })
+  // }
+  
 
 componentDidMount() {
   this.setState({ recipesArray: [] }); //NOT WORKING EITHER!
@@ -40,16 +66,23 @@ componentDidMount() {
     this.setState({ term: "", diet: "", health: ""});
   }
 
-handleSave(event){
-    // Collect the clicked recipe's id
-    var recipeId = event.target.id;
-    // console.log(recipeId);
-    // Collect the clicked article's attributes
-    var  saveRecipeObj = this.state.recipesArray[recipeId];
-    // Send this data to the my API endpoint to save it to Mongo
-    helpers.apiSave(saveRecipeObj).then(() => {
-      console.log("Recipe saved!");
-    });
+async handleSave(event){
+  var auth = await realAuth.isAuthenticated()
+  if (!auth) {
+    history.push('/login')
+      
+  }
+    else {
+      // Collect the clicked recipe's id
+      var recipeId = event.target.id;
+      // console.log(recipeId);
+      // Collect the clicked article's attributes
+      var  saveRecipeObj = this.state.recipesArray[recipeId];
+      // Send this data to the my API endpoint to save it to Mongo
+      helpers.apiSave(saveRecipeObj).then(function(res){
+        console.log("Recipe saved!");
+      });
+    }
 }
 
 render() {

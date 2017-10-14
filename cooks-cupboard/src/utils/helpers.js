@@ -62,7 +62,12 @@ var helper = {
         reject("");
       }
       
-    })
+    }).catch(function(err){
+      console.log(err)
+      if (err.response.status === 403) {
+        reject(err);
+      }
+    });
 
   });
   
