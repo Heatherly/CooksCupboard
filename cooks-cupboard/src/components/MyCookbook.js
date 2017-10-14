@@ -3,57 +3,65 @@
 
 import React from 'react';
 
+// Helper for making AJAX requests to our API
+var helpers = require("../utils/helpers");
+
 class MyCookbook extends React.Component {
     constructor(props) {
         super(props);
 
-        }
+        this.state = {
+            mongoResults: []
+        };
+
+    }
     
 componentDidMount() {
 // use fetch() to get the saved recipes for this user from our api at /myfaves
+         helpers.apiGet().then(function(query){
+              this.setState({ mongoResults: query.data });
+              console.log(this.state.mongoResults);
+            }.bind(this));
 
-    }
+}
 
 
     render() {
         // const props = {...this.props};
 
         return (
+        <div className="myCookbook">    
             <div>
                 <h1>My Cookbook</h1>
 
             </div>
-            /*<div className="card-columns">
-                            
-            
-                                {this.props.apiResults.map((recipeInfo, i) => {
-                                  return (
-            
-                                    <div className="card" key={i}>
-                                      <img className="card-img-top" src={recipeInfo.recipe.image} alt={recipeInfo.recipe.label}/>
-                                      <div className="card-body">
-                                        <h4 className="card-title">{recipeInfo.recipe.label}</h4>
-                                        <ul className="card-text">INGREDIENTS: 
-                                            {recipeInfo.recipe.ingredients.map(function(ing, i) {
-                                                return(
-                                                    <li key={i}>{ing.text}</li>
-                                                )
-                                            })
-                                                
-                                            }
-                                            
-                                        </ul>
-                                        <a href="#" className="btn btn-primary">Go somewhere</a>
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                                       
-                        </div>*/
+                   <div className="recipeCards">
+              <div className="card-columns">
+                {this.state.mongoResults.recipes.map((recipeInfo, i) => {
+                    
+                  return (
+
+                    <div className="card" key={i}>
+                      <img className="card-img-top" src={recipeInfo.picURL} alt={recipeInfo.title}/>
+                      <div className="card-body">
+                        <h4 className="card-title">{recipeInfo.title}</h4>
+                        <ul className="card-text">INGREDIENTS:                          
+                            {recipeInfo.ingredients}                                                         
+                        </ul>
+                        <p>Source: <a href="#"></a></p>
+                        <button className="btn btn-primary">Save to MyCookbook</button>
+                      </div>
+                    </div>
+                  );
+                })}
+               </div>
+            </div>  
+        </div>
+                               
     );
   
   }
 
-    };
+};
 
 export default MyCookbook;

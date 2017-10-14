@@ -10,13 +10,16 @@ function authRequired(req, res, next) {
 		next();
 	}
 	else {
-		 return res.redirect('/login');
-
+		 res.sendStatus(403);
 	}
 
 };
 
 router.get('/login', function(req, res) {
+
+	res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+	res.header("Pragma", 'no-cache');
+	res.header('Expires', 0);
 	
 	res.sendFile(path.join(__dirname, "../public","login.html"))
 });
