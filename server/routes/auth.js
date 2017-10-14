@@ -9,6 +9,18 @@ router.get('/login', function(req, res) {
 	res.sendFile(path.join(__dirname, "../public","login.html"))
 });
 
+router.get('/isloggedin', function(req, res) {
+	res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+	res.header("Pragma", 'no-cache');
+	res.header('Expires', 0);
+	if (req.user) {
+		res.send('1')
+	}
+	else {
+		 res.send('0')
+	}
+});
+
 router.post('/login', passport.authenticate('local', {
 	successRedirect: '/',
 	failureRedirect: '/login'
