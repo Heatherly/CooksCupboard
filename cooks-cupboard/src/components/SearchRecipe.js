@@ -21,9 +21,9 @@ class SearchRecipe extends React.Component {
   this.handleSave = this.handleSave.bind(this);
   }
 
-componentDidMount() {
-  this.setState({ recipesArray: [] }); //NOT WORKING EITHER!
-}
+// componentDidUpdate() {
+//   this.setState({ recipesArray: [] }); //NOT WORKING EITHER!
+// }
   handleChange(event) { //looks for any changes on multiple form fields
     var newState = {};
     newState[event.target.id] = event.target.value;
@@ -32,7 +32,7 @@ componentDidMount() {
 
   handleSubmit(event) {
    event.preventDefault();
-   this.setState({ recipesArray: [] }); //NOT CLEARING THIS ARRAY AND I DON'T KNOW WHY!!
+   this.state.recipesArray = []; //NOT CLEARING THIS ARRAY AND I DON'T KNOW WHY!!
     // console.log("Passing Query to App parent");
     //gives the properties up to App to perform API Search
     this.props.setQuery(this.state.term, this.state.diet, this.state.health);
@@ -61,13 +61,13 @@ render() {
 			  	<h2>Search New Recipes</h2>
 			  	  <div className="form-group">
 			  		<label htmlFor="term">Keyword: </label>
-				  		<input id="term" className="form-control" type="text" placeholder="Search" value={this.state.term} onChange={this.handleChange} required />
+				  		<input id="term" className="form-control" type="text" placeholder="Search" onChange={this.handleChange} required />
 	          		</div>
 	          		
           		  <div className="form-row">
           		  	<div className="form-group col-md-6">
           		  		<label htmlFor="diet">Diet: </label>
-		          		<select className="form-control" id="diet" value={this.state.diet} onChange={this.handleChange}>
+		          		<select className="form-control" id="diet" onChange={this.handleChange}>
 					    	<option></option>
 							<option value="balanced">Balanced</option>
 							<option value="high-protein">High-Protein</option>
@@ -77,7 +77,7 @@ render() {
 					</div>
 					<div className="form-group col-md-6">
 				  		<label htmlFor="health">Lifestyle: </label>
-		          		<select className="form-control" id="health" value={this.state.health} onChange={this.handleChange}>
+		          		<select className="form-control" id="health" onChange={this.handleChange}>
 								<option></option>
 								<option value="alcohol-free">Alcohol Free</option>
 								<option value="tree-nut-free">Tree Nut Free</option>
