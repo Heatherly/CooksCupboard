@@ -45,12 +45,12 @@ var helper = {
 
     // Re-format the article Object to match the Mongo Model (ie we need to take off the the id)
     var params = new URLSearchParams();
-    params.append("title", recipeObj.title);
-    params.append("ingredients", recipeObj.ingredients);
-    params.append("source", recipeObj.source);
-    params.append("sourceURL", recipeObj.sourceURL);
-    params.append("picURL", recipeObj.picURL);
-    params.append("notes", recipeObj.notes);
+    params.set("title", recipeObj.title);
+    params.set("ingredients", recipeObj.ingredients);
+    params.set("source", recipeObj.source);
+    params.set("sourceURL", recipeObj.sourceURL);
+    params.set("picURL", recipeObj.picURL);
+    params.set("notes", recipeObj.notes);
     // params.append("username", req.user.username) //NOT SURE IF THIS IS HOW I ADD IN USERNAME DATA OR NOT???
     axios.post(apiURL, params).then(function(response){
 
