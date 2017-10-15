@@ -69,7 +69,7 @@ class App extends Component {
     if (prevState.term !== this.state.term) {
 
     helpers.runQuery(this.state.term, this.state.diet, this.state.health).then(function(data) {
-         console.log(data);
+         // console.log(data);
          this.setState({ apiResults: data });
           }.bind(this));
       };
