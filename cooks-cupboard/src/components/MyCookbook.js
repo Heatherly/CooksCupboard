@@ -19,7 +19,7 @@ class MyCookbook extends React.Component {
 componentDidMount() {
 // use fetch() to get the saved recipes for this user from our api at /myfaves
          helpers.apiGet().then(function(query){
-              this.setState({ mongoResults: query.data });
+              this.setState({ mongoResults: query.data.recipes });
               console.log(this.state.mongoResults);
             }.bind(this));
 
@@ -35,27 +35,30 @@ componentDidMount() {
                 <h1>My Cookbook</h1>
 
             </div>
-                   <div className="recipeCards">
-              <div className="card-columns">
-                {this.state.mongoResults.recipes.map((recipeInfo, i) => {
-                    
-                  return (
-
-                    <div className="card" key={i}>
-                      <img className="card-img-top" src={recipeInfo.picURL} alt={recipeInfo.title}/>
-                      <div className="card-body">
-                        <h4 className="card-title">{recipeInfo.title}</h4>
-                        <ul className="card-text">INGREDIENTS:                          
-                            {recipeInfo.ingredients}                                                         
-                        </ul>
-                        <p>Source: <a href="#"></a></p>
-                        <button className="btn btn-primary">Save to MyCookbook</button>
-                      </div>
-                    </div>
-                  );
-                })}
-               </div>
-            </div>  
+              <div className="recipeCards">
+                           <div className="card-columns">
+                             {this.state.mongoResults.map((recipeInfo, i) => {
+                                 
+                               return (
+             
+                                 <div className="card" key={i}>
+                                   <img className="card-img-top" src={recipeInfo.picURL} alt={recipeInfo.title}/>
+                                   <div className="card-body">
+                                     <h4 className="card-title">{recipeInfo.title}</h4>
+                                     <ul className="card-text">INGREDIENTS:                          
+                                        {recipeInfo.ingredients.split(';').map(ingredient => {
+                                          return <li> {ingredient} </li>}
+                                        )}
+                                     </ul>
+                                     <p>Source: <a href="#"></a></p>
+                                     <button className="btn btn-primary">Email Me</button>
+                                     <button className="btn btn-warning">Delete</button>
+                                   </div>
+                                 </div>
+                               );
+                             })}
+                            </div>
+              </div>
         </div>
                                
     );

@@ -59,7 +59,9 @@ class SearchRecipe extends React.Component {
 
   handleSubmit(event) {
    event.preventDefault();
-   this.state.recipesArray = []; //NOT CLEARING THIS ARRAY AND I DON'T KNOW WHY!!
+   // console.log("TEST 1 " + this.state.recipesArray);
+   // this.state.recipesArray = []; //NOT CLEARING THIS ARRAY AND I DON'T KNOW WHY!!
+   //  console.log("TEST 2 " + this.state.recipesArray);
     // console.log("Passing Query to App parent");
     //gives the properties up to App to perform API Search
     this.props.setQuery(this.state.term, this.state.diet, this.state.health);
@@ -67,24 +69,19 @@ class SearchRecipe extends React.Component {
     this.setState({ term: "", diet: "", health: ""});
   }
 
-async handleSave(event){
-  var auth = await realAuth.isAuthenticated()
-  if (!auth) {
-    history.push('/login')
-      
-  }
-    else {
+handleSave(event){
+
       // Collect the clicked recipe's id
       var recipeId = event.target.id;
       // console.log(recipeId);
       // Collect the clicked article's attributes
-      var  saveRecipeObj = this.state.recipesArray[recipeId];
+      var  saveRecipeObj = this.props.apiResults[recipeId];
       // Send this data to the my API endpoint to save it to Mongo
       helpers.apiSave(saveRecipeObj).then(function(res){
-        console.log("Recipe saved!");
+        console.log(saveRecipeObj);
       });
     }
-}
+
 
 render() {
     return (
@@ -132,8 +129,11 @@ render() {
 {/*THIS IS WHERE API RESULTS WILL DISPLAY*/}
 			<div className="recipeCards">
 	          <div className="card-columns">
+                {console.log("HERE 3 " + this.state.recipesArray)}
+                {console.log("HERE 4 " + this.props.apiResults)}
+                {this.state.recipesArray = []}
                 {this.props.apiResults.map((recipeInfo, i) => {
-                    let ingArray = [];
+{/*                    let ingArray = [];
                     for (var j = 0; j < recipeInfo.recipe.ingredients.length; j++) {
                       ingArray.push(recipeInfo.recipe.ingredients[j].text);
                     }
@@ -146,8 +146,8 @@ render() {
                       sourceURL: recipeInfo.recipe.url,
                       picURL: recipeInfo.recipe.image,
                       notes: ""
-                    });
-                    console.log(this.state.recipesArray);
+                    });*/}
+                    // console.log(this.state.recipesArray);
                   return (
 
                     <div className="card" key={i}>

@@ -25,6 +25,17 @@ var helper = {
 
     return axios.get(queryURL).then(function(response) {
       console.log(queryURL);
+      response.data.hits.map((recipe, i) => {
+        return {id: i,
+          title: recipe.recipe.label,
+          ingredients: recipe.recipe.ingredients.map((ingredient) => {return ingredient.text}),
+          source: recipe.recipe.source,
+          sourceURL: recipe.recipe.url,
+          picURL: recipe.recipe.image,
+          notes: ""
+        }
+      });
+
       return response.data.hits;
     });
   },
@@ -45,13 +56,20 @@ var helper = {
 
     // Re-format the article Object to match the Mongo Model (ie we need to take off the the id)
     var params = new URLSearchParams();
-    params.set("title", recipeObj.title);
-    params.set("ingredients", recipeObj.ingredients);
-    params.set("source", recipeObj.source);
-    params.set("sourceURL", recipeObj.sourceURL);
-    params.set("picURL", recipeObj.picURL);
-    params.set("notes", recipeObj.notes);
-    // params.append("username", req.user.username) //NOT SURE IF THIS IS HOW I ADD IN USERNAME DATA OR NOT???
+
+    params.append("title", recipeObj.title);
+    params.append("ingredients", recipeObj.ingredients);
+    params.append("source", recipeObj.source);
+    params.append("sourceURL", recipeObj.sourceURL);
+    params.append("picURL", recipeObj.picURL);
+    params.append("notes", recipeObj.notes);
+    // params.set("title", recipeObj.title);
+    // params.set("ingredients", recipeObj.ingredients);
+    // params.set("source", recipeObj.source);
+    // params.set("sourceURL", recipeObj.sourceURL);
+    // params.set("picURL", recipeObj.picURL);
+    // params.set("notes", recipeObj.notes);
+   
     axios.post(apiURL, params).then(function(response){
 
       // Error handling / fullfil promise if successful query
