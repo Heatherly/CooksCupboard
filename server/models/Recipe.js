@@ -32,11 +32,13 @@ var RecipeSchema = new Schema({
   },
     picURL: {
       type: String,
-      trim: true
+      trim: true,
+      default: "/static/media/vegetables-default.jpg"
   },
     notes: {
       type: String,
-      trim: true
+      trim: true,
+      default: ""
   },
     saved: {
       type: Boolean,

@@ -24,15 +24,14 @@ var helper = {
     }
 
     return axios.get(queryURL).then(function(response) {
-      console.log(queryURL);
+      // console.log(queryURL);
       response.data.hits.map((recipe, i) => {
         return {id: i,
           title: recipe.recipe.label,
           ingredients: recipe.recipe.ingredients.map((ingredient) => {return ingredient.text}),
           source: recipe.recipe.source,
           sourceURL: recipe.recipe.url,
-          picURL: recipe.recipe.image,
-          notes: ""
+          picURL: recipe.recipe.image
         }
       });
 
@@ -47,7 +46,8 @@ var helper = {
 
 // API Post Request Function
   apiSave: function(recipeObj){
-
+    console.log("Helpers recipeObj -------------------------");
+    console.log(recipeObj)
   // Get API Post URL (this allows it to work in both localhost and heroku)
   var apiURL = window.location.origin + '/save';
 
@@ -56,19 +56,12 @@ var helper = {
 
     // Re-format the article Object to match the Mongo Model (ie we need to take off the the id)
     var params = new URLSearchParams();
-
-    params.append("title", recipeObj.title);
-    params.append("ingredients", recipeObj.ingredients);
-    params.append("source", recipeObj.source);
-    params.append("sourceURL", recipeObj.sourceURL);
-    params.append("picURL", recipeObj.picURL);
-    params.append("notes", recipeObj.notes);
-    // params.set("title", recipeObj.title);
-    // params.set("ingredients", recipeObj.ingredients);
-    // params.set("source", recipeObj.source);
-    // params.set("sourceURL", recipeObj.sourceURL);
-    // params.set("picURL", recipeObj.picURL);
-    // params.set("notes", recipeObj.notes);
+    params.set("title", recipeObj.label);
+    params.set("ingredients", recipeObj.ingredients.map((ingredient) => {return ingredient.text}),
+);
+    params.set("source", recipeObj.source);
+    params.set("sourceURL", recipeObj.url);
+    params.set("picURL", recipeObj.image);
    
     axios.post(apiURL, params).then(function(response){
 

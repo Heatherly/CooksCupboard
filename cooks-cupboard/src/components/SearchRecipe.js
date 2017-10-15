@@ -75,10 +75,11 @@ handleSave(event){
       var recipeId = event.target.id;
       // console.log(recipeId);
       // Collect the clicked article's attributes
-      var  saveRecipeObj = this.props.apiResults[recipeId];
+      var  saveRecipeObj = this.props.apiResults[recipeId].recipe;
       // Send this data to the my API endpoint to save it to Mongo
+      console.log(saveRecipeObj);
       helpers.apiSave(saveRecipeObj).then(function(res){
-        console.log(saveRecipeObj);
+        
       });
     }
 
@@ -129,41 +130,20 @@ render() {
 {/*THIS IS WHERE API RESULTS WILL DISPLAY*/}
 			<div className="recipeCards">
 	          <div className="card-columns">
-                {console.log("HERE 3 " + this.state.recipesArray)}
-                {console.log("HERE 4 " + this.props.apiResults)}
+                {console.log("apiResults------------------------ ")}
+                {console.log(this.props.apiResults)}
                 {this.state.recipesArray = []}
                 {this.props.apiResults.map((recipeInfo, i) => {
-{/*                    let ingArray = [];
-                    for (var j = 0; j < recipeInfo.recipe.ingredients.length; j++) {
-                      ingArray.push(recipeInfo.recipe.ingredients[j].text);
-                    }
-                    // Build array of recipes
-                    this.state.recipesArray.push({
-                      id: i,
-                      title: recipeInfo.recipe.label,
-                      ingredients: ingArray.join(";"),
-                      source: recipeInfo.recipe.source,
-                      sourceURL: recipeInfo.recipe.url,
-                      picURL: recipeInfo.recipe.image,
-                      notes: ""
-                    });*/}
-                    // console.log(this.state.recipesArray);
                   return (
-
                     <div className="card" key={i}>
                       <img className="card-img-top" src={recipeInfo.recipe.image} alt={recipeInfo.recipe.label}/>
                       <div className="card-body">
                         <h4 className="card-title">{recipeInfo.recipe.label}</h4>
-                        <ul className="card-text">INGREDIENTS: 
+                          <ul className="card-text">INGREDIENTS: 
                             {recipeInfo.recipe.ingredients.map(function(ing, i) {
-                                return(
-                                    <li key={i}>{ing.text}</li>
-                                )
-                            })
-                                
-                            }
-                            
-                        </ul>
+                                return( <li key={i}>{ing.text}</li> )
+                            })}
+                          </ul>
                         <p>Source: <a href={recipeInfo.recipe.url}>{recipeInfo.recipe.source}</a></p>
                         <button className="btn btn-primary" id={i} onClick={this.handleSave}>Save to MyCookbook</button>
                       </div>
