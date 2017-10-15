@@ -50,7 +50,7 @@ componentDidMount() {
                                           return <li> {ingredient} </li>}
                                         )}
                                      </ul>
-                                     <p>Source: <a href="#"></a></p>
+                                     <p>Source: <a href={recipeInfo.url}>{recipeInfo.source}</a></p>
                                      <button className="btn btn-primary">Email Me</button>
                                      <button className="btn btn-warning">Delete</button>
                                    </div>
