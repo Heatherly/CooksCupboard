@@ -1,6 +1,3 @@
-//If we want to use it, this is the ES6 syntax to include the button component from React-Bootstrap -- importing only the compnents needed reduces the size of our project: import Button from 'react-bootstrap/lib/Button';
-//ES5 example: var Alert = require('react-bootstrap/lib/Alert');
-
 import React from 'react';
 
 // Helper for making AJAX requests to our API
@@ -14,6 +11,7 @@ class MyCookbook extends React.Component {
             mongoResults: []
         };
 
+    this.handleDelete = this.handleDelete.bind(this);
     }
     
 componentDidMount() {
@@ -25,7 +23,25 @@ componentDidMount() {
 
 }
 
+handleDelete(event) {
 
+    // Collect the clicked article's id
+    var recipeMongoId = event.target.id;
+
+   // Send this data to the API endpoint to save it to Mongo
+    helpers.apiDelete(recipeMongoId).then(() => {
+
+      //Refresh this component to account for deletion
+      helpers.apiGet().then((query) => {
+        this.setState({ mongoResults: query.data.recipes });
+      });
+
+    });
+  }
+
+refreshMongoResults(newData){
+    this.setState({ mongoResults: newData} );
+  }
     render() {
         // const props = {...this.props};
 
@@ -36,28 +52,28 @@ componentDidMount() {
 
             </div>
               <div className="recipeCards">
-                           <div className="card-columns">
-                             {this.state.mongoResults.map((recipeInfo, i) => {
-                                 
-                               return (
-             
-                                 <div className="card" key={i}>
-                                   <img className="card-img-top" src={recipeInfo.picURL} alt={recipeInfo.title}/>
-                                   <div className="card-body">
-                                     <h4 className="card-title">{recipeInfo.title}</h4>
-                                     <ul className="card-text">INGREDIENTS:                          
-                                        {recipeInfo.ingredients.split(';').map(ingredient => {
-                                          return <li> {ingredient} </li>}
-                                        )}
-                                     </ul>
-                                     <p>Source: <a href={recipeInfo.url}>{recipeInfo.source}</a></p>
-                                     <button className="btn btn-primary">Email Me</button>
-                                     <button className="btn btn-warning">Delete</button>
-                                   </div>
-                                 </div>
-                               );
-                             })}
-                            </div>
+                 <div className="card-columns">
+                   {this.state.mongoResults.map((recipeInfo, i) => {
+                       
+                     return (
+   
+                       <div className="card" key={recipeInfo._id}>
+                         <img className="card-img-top" src={recipeInfo.picURL} alt={recipeInfo.title}/>
+                         <div className="card-body">
+                           <h4 className="card-title">{recipeInfo.title}</h4>
+                           <ul className="card-text">INGREDIENTS:                          
+                              {recipeInfo.ingredients.split(';').map(ingredient => {
+                                return <li> {ingredient} </li>}
+                              )}
+                           </ul>
+                           <p>Source: <a href={recipeInfo.url}>{recipeInfo.source}</a></p>
+                           <button className="btn btn-primary">Email Me</button>
+                           <button id={recipeInfo._id} onClick={this.handleDelete} className="btn btn-warning">Delete</button>
+                         </div>
+                       </div>
+                     );
+                   })}
+                  </div>
               </div>
         </div>
                                
