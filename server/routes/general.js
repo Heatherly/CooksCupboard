@@ -62,4 +62,22 @@ router.get("/myfaves", authRequired, function(req, res) {
 	});
 });
 
+
+router.post("/myfaves/delete/:recipeMongoId", function(req, res) {
+  console.log(req.params.articleMongoId)
+  Recipe.findByIdAndRemove(req.params.recipeMongoId, function (err, todo) {
+    if (err) {
+      // Send Failure Header
+      console.log(err);      
+      res.sendStatus(400);
+    } 
+    else {
+    	console.log("recipe removed")
+      // Send Success Header
+      res.sendStatus(200);
+    }
+  });
+
+});
+
 module.exports = router; 
