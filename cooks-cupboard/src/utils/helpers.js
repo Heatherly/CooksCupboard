@@ -74,11 +74,11 @@ var helper = {
       }
       
     }).catch(function(err){
-      console.log(err)
-      if (err.response.status === 403) {
+       console.log(err)
+       if (err.response.status === 403) {
         reject(err);
-      }
-    });
+       }
+     });
 
   });
   
@@ -114,11 +114,6 @@ var helper = {
         reject("");
       }
       
-    }).catch(function(err){
-      console.log(err)
-      if (err.response.status === 403) {
-        reject(err);
-      }
     });
 
   });
@@ -176,6 +171,23 @@ apiDelete: function(deleteRecipeId){
 
   });
 
+},
+
+sendEmail: function(emailObj){
+
+  var apiURL = window.location.origin + '/sendemail';
+
+  return new Promise(function (fulfill, reject){
+
+    axios.post(apiURL).then(function(response) {
+      if(response){
+        fulfill(response);
+      }
+      else{
+        reject("");
+      }
+    });
+  });
 }
 
 };

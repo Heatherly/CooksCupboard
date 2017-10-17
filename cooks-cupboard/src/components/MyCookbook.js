@@ -1,4 +1,5 @@
 import React from 'react';
+import {realAuth} from '../App';
 
 // Helper for making AJAX requests to our API
 var helpers = require("../utils/helpers");
@@ -42,7 +43,7 @@ handleDelete(event) {
 refreshMongoResults(newData){
     this.setState({ mongoResults: newData} );
   }
-    render() {
+     render() {
         // const props = {...this.props};
 
         return (

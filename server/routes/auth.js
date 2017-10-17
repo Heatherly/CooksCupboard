@@ -49,7 +49,7 @@ router.post('/register', function(req, res, next) {
 router.get('/logout', function(req, res) {
 	req.logout();
 	 req.session.destroy();
-	res.redirect('/login');
+	res.redirect('/');
 });
 
 router.get("/user", function(req, res) {

@@ -7,46 +7,16 @@ import AddRecipe from './components/AddRecipe';
 import MyCookbook from './components/MyCookbook';
 import Login from './components/Login';
 import Register from './components/Register';
-import history from './components/history';
+
+import AuthorizedRoute from './components/AuthorizedRoute'
+import store from './store'
 
 // Including the Link component from React Router to navigate within our application without full page reloads
-import { Route, Router, Link, Switch, Redirect } from 'react-router-dom'
+import { Route, BrowserRouter as Router, Link, Switch, Redirect } from 'react-router-dom'
 
 // Helper for making AJAX requests to our API
 const helpers = require("./utils/helpers");
 var axios = require("axios");
-
-export const realAuth = {
-  async isAuthenticated() {
-    var apiURL = window.location.origin + '/isloggedin';
-    const res = await axios.get(apiURL);
-    console.log(res);
-    if (res.data === 1) {
-      return true;
-    }
-    return false;
-  },
-  authenticate(username, password, cb) {
-
-  },
-  signout(cb) {
-
-  }
-}
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    realAuth.isAuthenticated ? (
-      <Component {...props}/>
-    ) : (
-      <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location }
-      }}/>
-    )
-  )}/>
-)
-
 
 class App extends Component {
 
@@ -139,11 +109,11 @@ class App extends Component {
 
         <div className="container">
 
-            <Router history={history}/>
+            
             <Switch>
               <Route exact path="/" render={(props) =>(<SearchRecipe setQuery={this.setQuery} createRecipe={this.createRecipe} apiResults={this.state.apiResults} recipes={this.state.recipes} />) }/>
-              <PrivateRoute path="/mycookbook" component={MyCookbook}/>
-              <PrivateRoute path="/add" component={AddRecipe}/>
+              <AuthorizedRoute path="/mycookbook" component={MyCookbook}/> 
+              <AuthorizedRoute path="/add" component={AddRecipe}/>                 
               <Route path="/login" component={Login}/>
               <Route path="/register" component={Register}/>
             </Switch>

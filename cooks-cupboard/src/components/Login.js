@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, BrowserRouter as Router, Link, Switch, Redirect } from 'react-router-dom'
 
 // Helper for making AJAX requests to our API
 // var helpers = require("../utils/helpers");
@@ -25,6 +26,10 @@ class Login extends React.Component {
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
 		    </form>
+
+
+        <span><h5>Not registered? register here:</h5></span>
+        <Link to="/register" className="nav-link">Register</Link>
 
       </div>
     );
