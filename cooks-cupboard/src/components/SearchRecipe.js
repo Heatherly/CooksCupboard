@@ -3,6 +3,8 @@ import '../App.css';
 import history from './history';
 import App from '../App';
 import { Route, Link, Switch, Redirect } from 'react-router-dom'
+import AlertContainer from 'react-alert'
+
 
 var axios = require("axios");
 // Helper for making AJAX requests to our API
@@ -39,12 +41,27 @@ class SearchRecipe extends React.Component {
       recipesArray: []
     };
 
-
-	this.handleChange = this.handleChange.bind(this);
+	this.alertOptions = {
+		offset: 25,
+		position: 'top left',
+		theme: 'light',
+		time: 5000,
+		transition: 'scale'
+	}
+  
+  this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
   this.handleSave = this.handleSave.bind(this);
   this.handleEmail = this.handleEmail.bind(this);
-  // this.showAlert = this.showAlert.bind(this);
+  this.showAlert = this.showAlert.bind(this);
+  }
+
+  
+  showAlert() {
+    this.msg.show('Recipe saved to MyCookbook', {
+      time: 2000,
+      type: 'success'
+    })
   }
 
   handleChange(event) { //looks for any changes on multiple form fields
@@ -68,13 +85,13 @@ class SearchRecipe extends React.Component {
           // Collect the clicked article's attributes
           var  saveRecipeObj = this.props.apiResults[recipeId].recipe;
           // Send this data to the my API endpoint to save it to Mongo
-          console.log(saveRecipeObj);
+          // console.log(saveRecipeObj);
           realAuth.isAuthenticated().then(auth => {if (auth) {
           helpers.apiSave(saveRecipeObj).then(function(res){
-            
+
           })} else {history.push('/login')}
         }); 
-        
+     this.showAlert();
   }
 
   handleEmail(event){
@@ -135,8 +152,8 @@ render() {
 {/*THIS IS WHERE API RESULTS WILL DISPLAY*/}
 			<div className="recipeCards">
 	          <div className="card-columns">
-                {console.log("apiResults------------------------ ")}
-                {console.log(this.props.apiResults)}
+               {/* {console.log("apiResults------------------------ ")}
+                               {console.log(this.props.apiResults)} */}
                 
                 {this.props.apiResults.map((recipeInfo, i) => {
                   return (
@@ -150,8 +167,9 @@ render() {
                             })}
                           </ul>
                         <p>Source: <a href={recipeInfo.recipe.url}>{recipeInfo.recipe.source}</a></p>
+                    <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
                         <button className="btn btn-primary" id={i} onClick={this.handleSave}>Save to MyCookbook</button>
-                        <button className="btn btn-primary" id={i} onClick={this.handleEmail}>Send email</button>
+                        <button className="btn btn-primary" id={i} onClick={this.handleEmail}>Email Me</button>
                       </div>
                     </div>
                   );

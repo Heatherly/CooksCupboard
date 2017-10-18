@@ -82,9 +82,7 @@ class App extends Component {
                             <li className="nav-item">
                                 <Link to="/add" className="nav-link">Add Recipe</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link to="/list" className="nav-link">Shopping List</Link>
-                            </li>
+                            {/*<li className="nav-item"><Link to="/list" className="nav-link">Shopping List</Link> </li>*/}
                             <li className="nav-item">
                                 <span className="nav-link">|</span>
                             </li>
