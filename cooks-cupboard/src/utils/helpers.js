@@ -179,7 +179,15 @@ sendEmail: function(emailObj){
 
   return new Promise(function (fulfill, reject){
 
-    axios.post(apiURL).then(function(response) {
+      var params = new URLSearchParams();
+    params.set("title", emailObj.label);
+    params.set("ingredients", emailObj.ingredients.map((ingredient) => {return ingredient.text}),
+);
+    params.set("source", emailObj.source);
+    params.set("sourceURL", emailObj.url);
+    params.set("picURL", emailObj.image);
+
+    axios.post(apiURL, params).then(function(response) {
       if(response){
         fulfill(response);
       }

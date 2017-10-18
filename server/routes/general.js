@@ -86,16 +86,19 @@ router.post("/myfaves/delete/:recipeMongoId", function(req, res) {
 });
 
 router.post('/sendemail', function(req, res) {
-	console.log(req.params);
+	console.log("route hit");
+	console.log(req.body);
 	var person = {
   		name : "Michael",
   		email: "mpiatnichko@gmail.com",
-  		subject:"Test"
+  		subject:"Test",
+  		recipe: req.body
 	}
 	
 email('emailTemp', person, function(error, result){
   console.log(' - - - - - - - - - - - - - - - - - - - - -> email sent: ');
   console.log(result);
+  console.log(error);
   console.log(' - - - - - - - - - - - - - - - - - - - - - - - - - - - -')
 })
 });
