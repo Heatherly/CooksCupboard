@@ -55,11 +55,6 @@ class SearchRecipe extends React.Component {
 
   handleSubmit(event) {
    event.preventDefault();
-   // console.log("TEST 1 " + this.state.recipesArray);
-   // this.state.recipesArray = []; //NOT CLEARING THIS ARRAY AND I DON'T KNOW WHY!!
-   //  console.log("TEST 2 " + this.state.recipesArray);
-    // console.log("Passing Query to App parent");
-    //gives the properties up to App to perform API Search
     this.props.setQuery(this.state.term, this.state.diet, this.state.health);
     //resets the state
     this.setState({ term: "", diet: "", health: ""});
@@ -67,9 +62,7 @@ class SearchRecipe extends React.Component {
 
   handleSave(event){
       var auth = realAuth.isAuthenticated()
-
-        
-          // Collect the clicked recipe's id
+       // Collect the clicked recipe's id
           var recipeId = event.target.id;
           // console.log(recipeId);
           // Collect the clicked article's attributes
@@ -95,7 +88,6 @@ class SearchRecipe extends React.Component {
 
     });
   }
-
 
 render() {
     return (
@@ -145,7 +137,7 @@ render() {
 	          <div className="card-columns">
                 {console.log("apiResults------------------------ ")}
                 {console.log(this.props.apiResults)}
-                {this.state.recipesArray = []}
+                
                 {this.props.apiResults.map((recipeInfo, i) => {
                   return (
                     <div className="card" key={i}>
