@@ -27,7 +27,7 @@ class App extends Component {
         term: "",
         diet: "",
         health: "",
-        apiResults:[]
+        apiResults:["starting empty string"]
     }
 
     this.setQuery = this.setQuery.bind(this);

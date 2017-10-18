@@ -38,7 +38,6 @@ class SearchRecipe extends React.Component {
       term: "",
       diet: "",
       health: "",
-      recipesArray: []
     };
 
 	this.alertOptions = {
@@ -151,9 +150,11 @@ render() {
 			
 {/*THIS IS WHERE API RESULTS WILL DISPLAY*/}
 			<div className="recipeCards">
+        {(this.props.apiResults.length > 1) ?
+                   
 	          <div className="card-columns">
-               {/* {console.log("apiResults------------------------ ")}
-                               {console.log(this.props.apiResults)} */}
+               {console.log("apiResults------------------------ ")}
+               {console.log(this.props.apiResults)} 
                 
                 {this.props.apiResults.map((recipeInfo, i) => {
                   return (
@@ -175,6 +176,13 @@ render() {
                   );
                 })}
 	           </div>
+             : [
+             (this.props.apiResults.length === 1) ? 
+                <div></div>
+              :
+              <p className="text-center">No recipe results to display. Please search again.</p>    
+              ]
+        }
 	        </div>  
 
       </div>
