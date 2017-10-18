@@ -39,7 +39,7 @@ router.post('/save', authRequired, function(req, res) {
 			res.send(err);
 		}
 		else {
-			User.findOneAndUpdate({}, { $push: { "recipes": doc._id} }, {new: true}, function(err, newdoc) {
+			User.findOneAndUpdate({"username": req.user.username}, { $push: { "recipes": doc._id} }, {new: true}, function(err, newdoc) {
 				if (err) {
 					res.send(err);
 				}

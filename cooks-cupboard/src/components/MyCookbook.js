@@ -1,5 +1,6 @@
 import React from 'react';
 import {realAuth} from '../App';
+import { Link } from 'react-router-dom'
 
 // Helper for making AJAX requests to our API
 var helpers = require("../utils/helpers");
@@ -44,39 +45,68 @@ refreshMongoResults(newData){
     this.setState({ mongoResults: newData} );
   }
      render() {
-        // const props = {...this.props};
-
-        return (
-        <div className="myCookbook">    
-            <div>
-                <h1>My Cookbook</h1>
-
-            </div>
-              <div className="recipeCards">
-                 <div className="card-columns">
-                   {this.state.mongoResults.map((recipeInfo, i) => {
+        // let cookbookCards
+        // if (this.state.mongoResults) {
+        //   cookbookCards = (
+        //       <div className="recipeCards">
+        //          <div className="card-columns">
+        //            {this.state.mongoResults.map((recipeInfo, i) => {
                        
-                     return (
+        //              return (
    
-                       <div className="card" key={recipeInfo._id}>
-                         <img className="card-img-top" src={recipeInfo.picURL} alt={recipeInfo.title}/>
-                         <div className="card-body">
-                           <h4 className="card-title">{recipeInfo.title}</h4>
-                           <ul className="card-text">INGREDIENTS:                          
-                              {recipeInfo.ingredients.split(';').map(ingredient => {
-                                return <li> {ingredient} </li>}
-                              )}
-                           </ul>
-                           <p>Source: <a href={recipeInfo.url}>{recipeInfo.source}</a></p>
-                           <button className="btn btn-primary">Email Me</button>
-                           <button id={recipeInfo._id} onClick={this.handleDelete} className="btn btn-warning">Delete</button>
-                         </div>
-                       </div>
-                     );
-                   })}
-                  </div>
-              </div>
-        </div>
+        //                <div className="card" key={recipeInfo._id}>
+        //                  <img className="card-img-top" src={recipeInfo.picURL} alt={recipeInfo.title}/>
+        //                  <div className="card-body">
+        //                    <h4 className="card-title">{recipeInfo.title}</h4>
+        //                    <ul className="card-text">INGREDIENTS:                          
+        //                       {recipeInfo.ingredients.split(';').map(ingredient => {
+        //                         return <li> {ingredient} </li>}
+        //                       )}
+        //                    </ul>
+        //                    <p>Source: <a href={recipeInfo.url}>{recipeInfo.source}</a></p>
+        //                    <button className="btn btn-primary">Email Me</button>
+        //                    <button id={recipeInfo._id} onClick={this.handleDelete} className="btn btn-warning">Delete</button>
+        //                  </div>
+        //                </div>
+        //              );
+        //            })}
+        //           </div>
+        //       </div>
+        //    )
+        // } else {
+        //   <div>
+        //     <p><strong>Oops, looks like there are no recipes saved. <Link to="/">Search for new recipes!</Link></strong></p>
+        //   </div>
+        // }
+        return (
+          <div>
+          <h1>My Cookbook</h1>
+
+          <div className="recipeCards">
+                  <div className="card-columns">
+                    {this.state.mongoResults.map((recipeInfo, i) => {
+                       
+                      return (
+   
+                        <div className="card" key={recipeInfo._id}>
+                          <img className="card-img-top" src={recipeInfo.picURL} alt={recipeInfo.title}/>
+                          <div className="card-body">
+                            <h4 className="card-title">{recipeInfo.title}</h4>
+                            <ul className="card-text">INGREDIENTS:                          
+                               {recipeInfo.ingredients.split(';').map(ingredient => {
+                                 return <li> {ingredient} </li>}
+                               )}
+                            </ul>
+                            <p>Source: <a href={recipeInfo.url}>{recipeInfo.source}</a></p>
+                            <button className="btn btn-primary">Email Me</button>
+                            <button id={recipeInfo._id} onClick={this.handleDelete} className="btn btn-warning">Delete</button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                   </div>
+               </div>
+          </div>
                                
     );
   

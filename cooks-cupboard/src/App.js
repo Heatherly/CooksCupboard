@@ -33,6 +33,10 @@ class App extends Component {
     this.createRecipe = this.createRecipe.bind(this);
     this.setQuery = this.setQuery.bind(this);
   }
+  
+  componentWillMount() {
+    this.setState({apiResults: []});
+  }
 
   componentDidUpdate(prevProps, prevState) {
    // If we have a new search term, run a new search
