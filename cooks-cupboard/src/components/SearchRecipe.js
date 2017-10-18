@@ -1,15 +1,30 @@
 import React from 'react';
-import AlertContainer from 'react-alert';
 import '../App.css';
-import {realAuth} from '../App';
-import App from '../App';
 import history from './history';
+import App from '../App';
 import { Route, Link, Switch, Redirect } from 'react-router-dom'
 
+var axios = require("axios");
 // Helper for making AJAX requests to our API
 const helpers = require("../utils/helpers");
 
-
+export const realAuth = {
+   async isAuthenticated() {
+    var apiURL = window.location.origin + '/isloggedin';
+     const res = await axios.get(apiURL);
+     console.log(res);
+     if (res.data === 1) {
+       return true;
+     }
+     return false;
+   },
+   authenticate(username, password, cb) {
+ 
+   },
+   signout(cb) {
+ 
+   }
+ }
   
 
 class SearchRecipe extends React.Component {
@@ -28,6 +43,7 @@ class SearchRecipe extends React.Component {
 	this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
   this.handleSave = this.handleSave.bind(this);
+  this.handleEmail = this.handleEmail.bind(this);
   // this.showAlert = this.showAlert.bind(this);
   }
 
@@ -69,19 +85,36 @@ class SearchRecipe extends React.Component {
     this.setState({ term: "", diet: "", health: ""});
   }
 
-handleSave(event){
+  handleSave(event){
+      var auth = realAuth.isAuthenticated()
 
-      // Collect the clicked recipe's id
-      var recipeId = event.target.id;
-      // console.log(recipeId);
-      // Collect the clicked article's attributes
-      var  saveRecipeObj = this.props.apiResults[recipeId].recipe;
-      // Send this data to the my API endpoint to save it to Mongo
-      console.log(saveRecipeObj);
-      helpers.apiSave(saveRecipeObj).then(function(res){
         
-      });
-    }
+          // Collect the clicked recipe's id
+          var recipeId = event.target.id;
+          // console.log(recipeId);
+          // Collect the clicked article's attributes
+          var  saveRecipeObj = this.props.apiResults[recipeId].recipe;
+          // Send this data to the my API endpoint to save it to Mongo
+          console.log(saveRecipeObj);
+          realAuth.isAuthenticated().then(auth => {if (auth) {
+          helpers.apiSave(saveRecipeObj).then(function(res){
+            
+          })} else {history.push('/login')}
+        }); 
+        
+  }
+
+  handleEmail(event){
+    var recipeId = event.target.id;
+
+    var emailObj = this.props.apiResults[recipeId].recipe;
+
+    console.log(emailObj);
+
+    helpers.sendEmail(emailObj).then(function(res){
+
+    });
+  }
 
 
 render() {
@@ -146,6 +179,7 @@ render() {
                           </ul>
                         <p>Source: <a href={recipeInfo.recipe.url}>{recipeInfo.recipe.source}</a></p>
                         <button className="btn btn-primary" id={i} onClick={this.handleSave}>Save to MyCookbook</button>
+                        <button className="btn btn-primary" id={i} onClick={this.handleEmail}>Send email</button>
                       </div>
                     </div>
                   );

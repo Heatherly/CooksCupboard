@@ -1,6 +1,11 @@
 var router = require('express').Router();
 var Recipe = require("../models/Recipe.js");
 var User = require("../models/User.js");
+const env = require('env2')('./.env');
+const sendemail = require('sendemail')
+const email = sendemail.email
+const set_template_directory = sendemail.set_template_directory
+set_template_directory('./templates')
 
 
 var path = require('path');
@@ -78,6 +83,21 @@ router.post("/myfaves/delete/:recipeMongoId", function(req, res) {
     }
   });
 
+});
+
+router.post('/sendemail', function(req, res) {
+	console.log(req.params);
+	var person = {
+  		name : "Michael",
+  		email: "mpiatnichko@gmail.com",
+  		subject:"Test"
+	}
+	
+email('emailTemp', person, function(error, result){
+  console.log(' - - - - - - - - - - - - - - - - - - - - -> email sent: ');
+  console.log(result);
+  console.log(' - - - - - - - - - - - - - - - - - - - - - - - - - - - -')
+})
 });
 
 module.exports = router; 
