@@ -72,6 +72,7 @@ header > div {
 .btn-primary {
 	background-color: #FF6600;
 	border-color: #333;
+	margin: 2px 5px;
 }
 
 #edamam-badge {
@@ -86,6 +87,10 @@ header > div {
 
 .recipeCards {
 	margin: 20px 0;
+}
+
+.card {
+	border: 1px solid #CCC;
 }
 
 /*Extra small devices (portrait phones, less than 576px)
