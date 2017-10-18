@@ -47,26 +47,6 @@ class SearchRecipe extends React.Component {
   // this.showAlert = this.showAlert.bind(this);
   }
 
-
-// componentDidUpdate() {
-//   this.setState({ recipesArray: [] }); //NOT WORKING EITHER!
-// }
-
-  //  alertOptions = {
-  //   offset: 14,
-  //   position: 'bottom left',
-  //   theme: 'dark',
-  //   time: 5000,
-  //   transition: 'scale'
-  // }
- 
-  // showAlert = () => {
-  //   this.msg.show('Please login to save recipes', {
-  //     time: 2000,
-  //     type: 'error'
-  //   })
-  // }
-  
   handleChange(event) { //looks for any changes on multiple form fields
     var newState = {};
     newState[event.target.id] = event.target.value;
