@@ -30,14 +30,9 @@ class App extends Component {
         apiResults:[]
     }
 
-    this.createRecipe = this.createRecipe.bind(this);
     this.setQuery = this.setQuery.bind(this);
   }
   
-  componentWillMount() {
-    this.setState({apiResults: []});
-  }
-
   componentDidUpdate(prevProps, prevState) {
    // If we have a new search term, run a new search
     if (prevState.term !== this.state.term) {
@@ -52,12 +47,6 @@ class App extends Component {
   // This function allows the child Search to update the parent.
   setQuery(term, diet, health) {
       this.setState({ term: term, diet: diet, health: health });
-  }
-
-  createRecipe(recipe) {
-    /*this.setState(prevState => ({
-        recipes: [...prevState.recipes, recipe]
-     })); ... -> is SPREAD OPERATOR - READ UP ON THIS!!*/
   }
 
   render() {

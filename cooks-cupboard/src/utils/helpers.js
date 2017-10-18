@@ -99,7 +99,7 @@ var helper = {
     params.set("ingredients", recipeObj.ingredients);
     params.set("source", "User Added");
     params.set("sourceURL", null);
-    if (recipeObj.picURL != "") {
+    if (recipeObj.picURL !== "") {
       params.set("picURL", recipeObj.picURL);
     }
     params.set("notes", recipeObj.notes);
