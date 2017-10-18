@@ -41,12 +41,12 @@ refreshMongoResults(newData){
     this.setState({ mongoResults: newData} );
   }
      render() {
-      const hasSavedRecipes = this.state.mongoResults;
+      // const hasSavedRecipes = this.state.mongoResults;
       return (
         <div>
           <h1>My Cookbook</h1>
         
-        {hasSavedRecipes ? (
+        {(this.state.mongoResults.length > 0) ? 
             <div className="recipeCards">
                <div className="card-columns">
                  {this.state.mongoResults.map((recipeInfo, i) => {
@@ -70,9 +70,9 @@ refreshMongoResults(newData){
                  })}
                 </div>
             </div>
-            ) : (
+            : 
             <p><strong>Oops, looks like there are no recipes saved. <Link to="/">Search for new recipes!</Link></strong></p>
-           )}
+           }
 
             
           </div>                      
