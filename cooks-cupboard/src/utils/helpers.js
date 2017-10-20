@@ -7,10 +7,8 @@ var helper = {
   // This function serves our purpose of running the query to geolocate.
   runQuery: function(term, diet, health) {
     // Search for articles
-
     var app_id = "af283a48";
     var api_key = "68eec6cfd890e362c1e6f52639a8d8bf";
-
     var queryURL = "https://api.edamam.com/search?&app_id=" + app_id + "&app_key=" + api_key + "&q=" + term + "&from=0&to=12";
 
     if(diet) {
@@ -57,8 +55,7 @@ var helper = {
     // Re-format the article Object to match the Mongo Model (ie we need to take off the the id)
     var params = new URLSearchParams();
     params.set("title", recipeObj.label);
-    params.set("ingredients", recipeObj.ingredients.map((ingredient) => {return ingredient.text}),
-);
+    params.set("ingredients", recipeObj.ingredientLines);
     params.set("source", recipeObj.source);
     params.set("sourceURL", recipeObj.url);
     params.set("picURL", recipeObj.image);
