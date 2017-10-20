@@ -44,7 +44,7 @@ class MyCookbook extends React.Component {
 
     console.log(emailObj);
     
-    helpers.sendEmail(emailObj).then(function(res){
+    helpers.sendEmailFromdb(emailObj).then(function(res){
 
     
     });
