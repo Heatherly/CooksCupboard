@@ -26,7 +26,7 @@ var RecipeSchema = new Schema({
     type: String,
     trim: true,
   },
-    sourceUrl: {
+    sourceURL: {
       type: String,
       trim: true
   },

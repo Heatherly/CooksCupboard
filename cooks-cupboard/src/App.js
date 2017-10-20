@@ -12,11 +12,10 @@ import AuthorizedRoute from './components/AuthorizedRoute'
 import store from './store'
 
 // Including the Link component from React Router to navigate within our application without full page reloads
-import { Route, BrowserRouter as Router, Link, Switch, Redirect } from 'react-router-dom'
+import { Route, Link, Switch } from 'react-router-dom'
 
 // Helper for making AJAX requests to our API
 const helpers = require("./utils/helpers");
-var axios = require("axios");
 
 class App extends Component {
 
@@ -102,7 +101,7 @@ class App extends Component {
 
             
             <Switch>
-              <Route exact path="/" render={(props) =>(<SearchRecipe setQuery={this.setQuery} createRecipe={this.createRecipe} apiResults={this.state.apiResults} recipes={this.state.recipes} />) }/>
+              <Route exact path="/" render={(props) =>(<SearchRecipe setQuery={this.setQuery} apiResults={this.state.apiResults} recipes={this.state.recipes} />) }/>
               <AuthorizedRoute path="/mycookbook" component={MyCookbook}/> 
               <AuthorizedRoute path="/add" component={AddRecipe}/>                 
               <Route path="/login" component={Login}/>

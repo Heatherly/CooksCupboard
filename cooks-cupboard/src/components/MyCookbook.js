@@ -1,6 +1,5 @@
 import React from 'react';
-import {realAuth} from './SearchRecipe';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 // Helper for making AJAX requests to our API
 var helpers = require("../utils/helpers");
@@ -12,17 +11,17 @@ class MyCookbook extends React.Component {
         this.state = {
             mongoResults: []
         };
-
+  
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
-    }
-    
+  }
+
   componentDidMount() {
   // use fetch() to get the saved recipes for this user from our api at /myfaves
    helpers.apiGet().then(function(query){
         this.setState({ mongoResults: query.data.recipes });
-        console.log("mongoResults");
-        console.log(this.state.mongoResults);
+        // console.log("mongoResults");
+        // console.log(this.state.mongoResults);
       }.bind(this));
   }
 
@@ -43,12 +42,11 @@ class MyCookbook extends React.Component {
 
     var emailObj = this.state.mongoResults.find(o => o._id === event.target.id);
 
-    console.log(emailObj);
+    // console.log(emailObj);
     
-    helpers.sendEmailFromdb(emailObj).then(function(res){
-
-    
+    helpers.sendEmailFromdb(emailObj).then(function(res){   
     });
+// 
   }
 
 refreshMongoResults(newData){
@@ -75,7 +73,7 @@ refreshMongoResults(newData){
                               return <li> {ingredient} </li>}
                             )}
                          </ul>
-                         <p>Source: <a href={recipeInfo.url}>{recipeInfo.source}</a></p>
+                         <p>Source: <a href={recipeInfo.sourceURL}>{recipeInfo.source}</a></p>
                          <button id={recipeInfo._id} onClick={this.handleEmail}className="btn btn-primary">Email Me</button>
                          <button id={recipeInfo._id} onClick={this.handleDelete} className="btn btn-warning">Delete</button>
                        </div>

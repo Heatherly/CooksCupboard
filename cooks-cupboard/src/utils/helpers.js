@@ -197,15 +197,15 @@ sendEmail: function(emailObj){
 
 sendEmailFromdb: function(dbEmailObj){
   var apiURL = window.location.origin + '/senddbemail';
-
+console.log(dbEmailObj);
   return new Promise(function(fulfill, reject){
 
           var params = new URLSearchParams();
-    params.set("title", dbEmailObj.label);
+    params.set("title", dbEmailObj.title);
     params.set("ingredients", dbEmailObj.ingredients);
     params.set("source", dbEmailObj.source);
-    params.set("sourceURL", dbEmailObj.url);
-    params.set("picURL", dbEmailObj.image);
+    params.set("sourceURL", dbEmailObj.sourceURL);
+    params.set("picURL", dbEmailObj.picURL);
 
     axios.post(apiURL, params).then(function(response) {
       if(response){
