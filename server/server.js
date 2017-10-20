@@ -8,7 +8,7 @@ var passport = require('passport');
 var Recipe = require("./models/Recipe.js");
 var User = require("./models/User.js");
 
-mongoose.connect('mongodb://localhost:27017/cookscupboard', {
+mongoose.connect('mongodb://heroku_0lfqg3ms:5mm7h5s8p90hrhccmftt4jer1l@ds125335.mlab.com:25335/heroku_0lfqg3ms', {
   useMongoClient: true
 });
 mongoose.Promise = global.Promise;
