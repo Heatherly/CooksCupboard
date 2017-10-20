@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, BrowserRouter as Router, Link, Switch, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 // Helper for making AJAX requests to our API
 // var helpers = require("../utils/helpers");

@@ -115,7 +115,8 @@ router.post('/senddbemail', function(req, res) {
 	if (req.user) {
 
 			console.log("route hit");
-			console.log(req.user)
+			console.log(req.user);
+			console.log(req.body);
 			
 
 			var person = {

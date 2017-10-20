@@ -1,10 +1,7 @@
 import React from 'react';
 import '../App.css';
 import history from './history';
-import App from '../App';
-import { Route, Link, Switch, Redirect } from 'react-router-dom'
-import AlertContainer from 'react-alert'
-
+import AlertContainer from 'react-alert';
 
 var axios = require("axios");
 // Helper for making AJAX requests to our API
@@ -88,12 +85,11 @@ class SearchRecipe extends React.Component {
      
        // Collect the clicked recipe's id
           var recipeId = event.target.id;
-          // console.log(recipeId);
           // Collect the clicked article's attributes
           var  saveRecipeObj = this.props.apiResults[recipeId].recipe;
           // Send this data to the my API endpoint to save it to Mongo
-          console.log("saveRecipeObj");
-          console.log(saveRecipeObj);
+          // console.log("saveRecipeObj");
+          // console.log(saveRecipeObj);
           realAuth.isAuthenticated().then(auth => {if (auth) {
           helpers.apiSave(saveRecipeObj).then(function(res){
 
@@ -107,7 +103,7 @@ class SearchRecipe extends React.Component {
 
     var emailObj = this.props.apiResults[recipeId].recipe;
 
-    console.log(emailObj);
+    // console.log(emailObj);
     realAuth.isAuthenticated().then(auth => {if (auth) {
     helpers.sendEmail(emailObj).then(function(res){
 
