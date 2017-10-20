@@ -53,6 +53,7 @@ class SearchRecipe extends React.Component {
   this.handleSave = this.handleSave.bind(this);
   this.handleEmail = this.handleEmail.bind(this);
   this.showAlert = this.showAlert.bind(this);
+  this.showEmailAlert = this.showEmailAlert.bind(this);
   }
 
   
@@ -60,6 +61,13 @@ class SearchRecipe extends React.Component {
     this.msg.show('Recipe saved to MyCookbook', {
       time: 2000,
       type: 'success'
+    })
+  }
+
+  showEmailAlert() {
+    this.msg.show('Recipe emailed to you!', {
+      time: 2000,
+      type: 'info'
     })
   }
 
@@ -84,7 +92,8 @@ class SearchRecipe extends React.Component {
           // Collect the clicked article's attributes
           var  saveRecipeObj = this.props.apiResults[recipeId].recipe;
           // Send this data to the my API endpoint to save it to Mongo
-          // console.log(saveRecipeObj);
+          console.log("saveRecipeObj");
+          console.log(saveRecipeObj);
           realAuth.isAuthenticated().then(auth => {if (auth) {
           helpers.apiSave(saveRecipeObj).then(function(res){
 
@@ -104,6 +113,7 @@ class SearchRecipe extends React.Component {
 
       })} else {history.push('/login')}
     });
+    this.showEmailAlert();
   }
 
 render() {

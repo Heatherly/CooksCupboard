@@ -21,6 +21,7 @@ class MyCookbook extends React.Component {
   // use fetch() to get the saved recipes for this user from our api at /myfaves
    helpers.apiGet().then(function(query){
         this.setState({ mongoResults: query.data.recipes });
+        console.log("mongoResults");
         console.log(this.state.mongoResults);
       }.bind(this));
   }
@@ -70,7 +71,7 @@ refreshMongoResults(newData){
                        <div className="card-body">
                          <h4 className="card-title">{recipeInfo.title}</h4>
                          <ul className="card-text">INGREDIENTS:                          
-                            {recipeInfo.ingredients.split(';').map(ingredient => {
+                            {recipeInfo.ingredients.split(',').map(ingredient => {
                               return <li> {ingredient} </li>}
                             )}
                          </ul>
