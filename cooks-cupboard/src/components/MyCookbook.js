@@ -1,5 +1,5 @@
 import React from 'react';
-import {realAuth} from '../App';
+import {realAuth} from './SearchRecipe';
 import { Link } from 'react-router-dom'
 
 // Helper for making AJAX requests to our API
@@ -14,6 +14,7 @@ class MyCookbook extends React.Component {
         };
 
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
     }
     
   componentDidMount() {
@@ -35,6 +36,18 @@ class MyCookbook extends React.Component {
         this.setState({ mongoResults: query.data.recipes });
       });
 
+    });
+  }
+
+  handleEmail(event){
+
+    var emailObj = this.state.mongoResults.find(o => o._id === event.target.id);
+
+    console.log(emailObj);
+    
+    helpers.sendEmailFromdb(emailObj).then(function(res){
+
+    
     });
   }
 
@@ -63,7 +76,7 @@ refreshMongoResults(newData){
                             )}
                          </ul>
                          <p>Source: <a href={recipeInfo.url}>{recipeInfo.source}</a></p>
-                         <button className="btn btn-primary">Email Me</button>
+                         <button id={recipeInfo._id} onClick={this.handleEmail}className="btn btn-primary">Email Me</button>
                          <button id={recipeInfo._id} onClick={this.handleDelete} className="btn btn-warning">Delete</button>
                        </div>
                      </div>

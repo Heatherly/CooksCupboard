@@ -85,7 +85,7 @@ class SearchRecipe extends React.Component {
   }
 
   handleSave(event){
-      var auth = realAuth.isAuthenticated()
+     
        // Collect the clicked recipe's id
           var recipeId = event.target.id;
           // console.log(recipeId);
@@ -108,9 +108,10 @@ class SearchRecipe extends React.Component {
     var emailObj = this.props.apiResults[recipeId].recipe;
 
     console.log(emailObj);
-
+    realAuth.isAuthenticated().then(auth => {if (auth) {
     helpers.sendEmail(emailObj).then(function(res){
 
+      })} else {history.push('/login')}
     });
     this.showEmailAlert();
   }

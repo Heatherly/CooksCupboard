@@ -4,6 +4,9 @@ var bcrypt = require('bcryptjs');
 var Schema = mongoose.Schema;
 
 var userSchema = new mongoose.Schema({
+	firstName: {type: String, require: true},
+	LastName: {type: String, require: true},
+	userEmail: {type: String, require: true},
 	username: { type: String, unique: true, require: true },
 	passwordHash: { type: String, require: true },
 	recipes: [{ type: Schema.Types.ObjectId, ref: "Recipe"}]
