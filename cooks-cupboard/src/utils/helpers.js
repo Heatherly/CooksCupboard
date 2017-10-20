@@ -174,7 +174,7 @@ apiDelete: function(deleteRecipeId){
 },
 
 sendEmail: function(emailObj){
-
+  console.log(emailObj);
   var apiURL = window.location.origin + '/sendemail';
 
   return new Promise(function (fulfill, reject){
@@ -196,6 +196,30 @@ sendEmail: function(emailObj){
       }
     });
   });
+},
+
+sendEmailFromdb: function(dbEmailObj){
+  var apiURL = window.location.origin + '/senddbemail';
+
+  return new Promise(function(fulfill, reject){
+
+          var params = new URLSearchParams();
+    params.set("title", dbEmailObj.label);
+    params.set("ingredients", dbEmailObj.ingredients);
+    params.set("source", dbEmailObj.source);
+    params.set("sourceURL", dbEmailObj.url);
+    params.set("picURL", dbEmailObj.image);
+
+    axios.post(apiURL, params).then(function(response) {
+      if(response){
+        fulfill(response);
+      }
+      else{
+        reject("");
+      }
+    });
+
+  })
 }
 
 };

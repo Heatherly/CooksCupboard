@@ -110,4 +110,30 @@ router.post('/sendemail', function(req, res) {
 	
 });
 
+router.post('/senddbemail', function(req, res) {
+	
+	if (req.user) {
+
+			console.log("route hit");
+			console.log(req.user)
+			
+
+			var person = {
+		  		name : req.user.firstName,
+		  		email: req.user.userEmail,
+		  		subject:"Your recipe from CooksCupboard",
+		  		recipe: req.body
+			}
+			
+		email('emailTemp', person, function(error, result){
+		  console.log(' - - - - - - - - - - - - - - - - - - - - -> email sent: ');
+		  console.log(result);
+		  console.log(error);
+		  console.log(' - - - - - - - - - - - - - - - - - - - - - - - - - - - -')
+		})
+	}
+	
+});
+
+
 module.exports = router; 
